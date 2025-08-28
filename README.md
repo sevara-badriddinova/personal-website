@@ -1,20 +1,32 @@
-# Portfolio Website
+# Sevara Badriddinova — Personal Website
 
-Simple portfolio website built with HTML, CSS, and JavaScript.
+Live: https://sevara-badriddinova.vercel.app/
 
-## How to run
+A fast, responsive portfolio built with HTML, CSS, and vanilla JavaScript.
 
-1. Start a local server:
-   ```bash
-   python3 -m http.server 8000
-   ```
+## Features
+- Smooth scrolling, active nav state
+- Animated timeline and project cards
+- Mobile menu, scroll-to-top
+- Contact form (AJAX via FormSubmit)
 
-2. Open http://localhost:8000 in your browser
+## Run locally
+```bash
+python3 -m http.server 8000
+# then open http://localhost:8000
+```
 
-## Files
+## Deploy
+- Drag-and-drop to Vercel/Netlify, or host as static files.
+- For Vercel, create a new project and import this repo.
 
-- `index.html` - Main website
-- `styles.css` - Styling
-- `script.js` - Interactive features
+## Edit content
+- `index.html`: text, experience, projects, links
+- `styles.css`: colors, spacing, components
+- `script.js`: interactions (menu, typing effect, contact form)
 
-That's it!
+## Contact form
+Uses FormSubmit’s AJAX endpoint. First submission triggers a confirmation email. After confirming, messages are delivered to your inbox.
+
+## License
+MIT
