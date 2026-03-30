@@ -71,6 +71,7 @@
                     <div class="skills">
                         <h3>My Skills</h3>
                         <ul>
+                            <li>Go</li>
                             <li>Java</li>
                             <li>Spring Boot</li>
                             <li>Python</li>
@@ -128,6 +129,26 @@
         <div class="container">
             <h2 class="section-title">Featured Projects</h2>
             <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <div class="project-placeholder">
+                            <img src="resources/img/eltunnel.png" alt="Eltunnel">
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Eltunnel — ngrok-style Tunneling Tool</h3>
+                        <p>Built a full-stack tunneling tool that exposes localhost services over a public URL using persistent WebSocket connections — the same core idea as ngrok, built from scratch. The Go relay server handles concurrent client connections via goroutines and channels, and uses subdomain-based routing to map each client to its inbound requests. A custom request ID correlation protocol lets multiple in-flight requests share a single WebSocket without collisions. Measured ~7ms average round-trip latency locally. Also identified and documented a sequential processing bottleneck in the Python client — the kind of thing that matters when you're proxying more than one request at a time.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Go</span>
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">WebSockets</span>
+                            <span class="tech-tag">HTTP</span>
+                        </div>
+                        <div class="project-links" style="margin-top: 1rem;">
+                            <a href="https://github.com/sevara-badriddinova/eltunnel" class="project-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
                 <div class="project-card">
                     <div class="project-image">
                         <div class="project-placeholder">
