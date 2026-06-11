@@ -244,7 +244,7 @@ p { color: var(--text-soft); }
 }
 .exp-when { font-family: "JetBrains Mono", monospace; font-size: 0.8rem; letter-spacing: 0.04em; color: var(--ink); }
 .exp-when span { color: var(--ink-dim); }
-.exp-what h3 { font-size: 1.18rem; font-weight: 600; }
+.exp-what h3 { font-family: "Anton", sans-serif; font-weight: 400; font-size: clamp(1.4rem, 2.4vw, 2rem); letter-spacing: 0.01em; line-height: 1; }
 .exp-what h4 { font-family: "JetBrains Mono", monospace; font-size: 0.82rem; color: var(--cyan-soft); font-weight: 500; margin-bottom: 0.6rem; letter-spacing: 0.03em; }
 .exp-what p { color: var(--text-soft); max-width: 72ch; }
 .edu-line { padding: 1.5rem var(--pad) 0; color: var(--ink-dim); font-family: "JetBrains Mono", monospace; font-size: 0.76rem; letter-spacing: 0.03em; border-top: 1px solid var(--line); padding-top: 1.5rem; }
