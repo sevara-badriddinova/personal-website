@@ -1,0 +1,186 @@
+@import "@fontsource/bricolage-grotesque/600.css";
+@import "@fontsource/bricolage-grotesque/700.css";
+@import "@fontsource/bricolage-grotesque/800.css";
+@import "@fontsource/dotgothic16/400.css";
+@import "@fontsource/plus-jakarta-sans/400.css";
+@import "@fontsource/plus-jakarta-sans/500.css";
+@import "@fontsource/plus-jakarta-sans/600.css";
+@import "@fontsource/plus-jakarta-sans/700.css";
+@import "@fontsource/jetbrains-mono/400.css";
+@import "@fontsource/jetbrains-mono/500.css";
+
+/* ---------------------------------------------------------
+   DESIGN TOKENS
+   Palette: warm cream canvas, near-black ink, one orange
+   accent, one green (status-only). Cool charcoal for muted
+   text/lines, per the "cool contrast" instinct in the brief.
+--------------------------------------------------------- */
+:root {
+  --cream: #f9f8f2;
+  --cream-dim: #f0ead8;
+  --cream-line: rgba(10, 10, 8, 0.16);
+  --paper-line: rgba(11, 12, 10, 0.19);
+
+  --ink: #0a0a0a;
+  --ink-soft: #171819;
+
+  --orange: #ff4b0b;
+  --orange-dim: #e0430b;
+  --green: #20b85a;
+  --pink: #ff3f8f;
+  --blue: #2e5bdd;
+  --yellow: #f8cf3f;
+  --mint: #9adfc9;
+  --tape: rgba(248, 226, 142, 0.58);
+  --blue-tape: rgba(159, 181, 244, 0.5);
+
+  --charcoal: #4d525c;
+  --charcoal-soft: #767b85;
+
+  --surface-dark: #101113;
+  --surface-dark-2: #17181b;
+  --on-dark: #f4f2ea;
+  --on-dark-soft: #9a9da6;
+  --on-dark-muted: #8b8e97;
+
+  --font-display: "Bricolage Grotesque", "Arial Black", sans-serif;
+  --font-dot: "DotGothic16", "Bricolage Grotesque", monospace;
+  --font-body: "Plus Jakarta Sans", "Inter", -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+
+  --radius-img: 14px;
+  --radius-pill: 999px;
+  --radius-sm: 6px;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --max-w: 1440px;
+  --gutter: clamp(20px, 5vw, 96px);
+
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: clip;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      var(--cream) 0,
+      var(--cream) 34px,
+      var(--paper-line) 35px,
+      var(--cream) 36px
+    );
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: clip;
+  margin: 0;
+  min-height: 100dvh;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(249, 248, 242, 0) 0,
+      rgba(249, 248, 242, 0) 34px,
+      var(--paper-line) 35px,
+      rgba(249, 248, 242, 0) 36px
+    ),
+    linear-gradient(90deg, transparent 0, transparent clamp(18px, 6vw, 86px), rgba(255, 75, 11, 0.16) clamp(19px, 6vw, 87px), transparent clamp(20px, 6vw, 88px)),
+    radial-gradient(circle at 30% 0%, rgba(255, 255, 255, 0.52), transparent 42%),
+    var(--cream);
+  background-attachment: fixed;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.18;
+  background-image:
+    radial-gradient(rgba(10, 10, 8, 0.12) 0.6px, transparent 0.6px);
+  background-size: 6px 6px;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+
+::selection {
+  background: var(--orange);
+  color: var(--cream);
+}
+
+:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 3px;
+}
+
+.section {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

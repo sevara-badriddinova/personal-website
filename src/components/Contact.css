@@ -1,0 +1,127 @@
+.contact {
+  padding-top: clamp(86px, 14vw, 170px);
+  padding-bottom: clamp(90px, 14vw, 170px);
+  text-align: center;
+}
+
+.contact__eyebrow {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 22px;
+  font-family: "Comic Sans MS", "Bradley Hand", "Marker Felt", cursive;
+  font-size: clamp(1.2rem, 2vw, 1.7rem);
+}
+
+.contact__eyebrow::after {
+  content: "";
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  bottom: -8px;
+  height: 9px;
+  border-top: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+  transform: rotate(-2deg);
+}
+
+.contact__headline {
+  position: relative;
+  display: inline-block;
+  padding: clamp(38px, 6vw, 72px) clamp(48px, 10vw, 160px);
+  border: 3px solid var(--ink);
+  background: var(--yellow);
+  box-shadow: 14px 14px 0 rgba(10, 10, 8, 0.92), 0 24px 44px rgba(19, 15, 8, 0.16);
+  transform: rotate(-1.1deg);
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 0.88;
+  letter-spacing: 0;
+  font-size: clamp(4rem, 11vw, 11rem);
+}
+
+.contact__headline::before,
+.contact__headline::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: -18px;
+  width: 138px;
+  height: 38px;
+  background: rgba(255, 253, 250, 0.7);
+}
+
+.contact__headline::before {
+  left: -16px;
+  transform: rotate(-5deg);
+}
+
+.contact__headline::after {
+  right: -18px;
+  transform: rotate(6deg);
+}
+
+.contact__line-wrap {
+  display: block;
+  overflow: hidden;
+}
+
+.contact__line {
+  display: block;
+}
+
+.contact__reach {
+  position: relative;
+  z-index: 1;
+  width: min(680px, 92%);
+  margin: clamp(38px, 5vw, 58px) auto 0;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: clamp(22px, 4vw, 34px);
+  background: rgba(248, 226, 142, 0.64);
+  box-shadow: 8px 9px 0 rgba(17, 16, 13, 0.08);
+  transform: rotate(0.8deg);
+}
+
+.contact__label {
+  max-width: 52ch;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  line-height: 1.55;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.contact__email {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(18px, 2.6vw, 28px);
+  color: var(--blue);
+  border-bottom: 2px solid var(--blue);
+  padding-bottom: 4px;
+}
+
+.contact__cursor {
+  flex-shrink: 0;
+}
+
+@media (max-width: 620px) {
+  .contact__headline {
+    padding-left: 24px;
+    padding-right: 24px;
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact__line-wrap {
+    overflow: visible;
+  }
+}

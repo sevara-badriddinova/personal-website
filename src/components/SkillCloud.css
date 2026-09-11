@@ -1,0 +1,49 @@
+.skillcloud {
+  margin-top: clamp(40px, 6vw, 72px);
+  text-align: center;
+}
+
+.skillcloud__label {
+  display: block;
+  font-family: "Comic Sans MS", "Bradley Hand", "Marker Felt", cursive;
+  font-size: 20px;
+  color: var(--ink);
+  margin-bottom: 18px;
+}
+
+.skillcloud__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 10px;
+  max-width: 1000px;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.skill-pill {
+  position: relative;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(14px, 1.4vw, 19px);
+  padding: 12px 22px;
+  border-radius: 0;
+  clip-path: polygon(0 7%, 7% 0, 18% 4%, 31% 0, 45% 5%, 59% 0, 75% 5%, 91% 0, 100% 8%, 97% 24%, 100% 40%, 96% 56%, 100% 72%, 94% 100%, 78% 96%, 62% 100%, 46% 96%, 30% 100%, 14% 96%, 0 100%, 4% 80%, 0 62%, 3% 42%, 0 24%);
+  transition: transform 0.2s var(--ease-out);
+  will-change: transform;
+}
+
+.skillcloud__group { margin-top: 26px; }
+.skillcloud__group-title {
+  margin-bottom: 12px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 500;
+}
+.skill-pill--pink { background: #ffa5ce; color: var(--ink); }
+.skill-pill--yellow { background: var(--yellow); color: var(--ink); }
+.skill-pill--mint { background: var(--mint); color: var(--ink); }
+.skill-pill--blue { background: #abc9ff; color: var(--ink); }
+
+.skill-pill:hover {
+  transform: translateY(-2px) scale(1.03);
+}

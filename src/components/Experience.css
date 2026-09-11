@@ -1,0 +1,422 @@
+.experience {
+  padding-top: clamp(70px, 10vw, 120px);
+  padding-bottom: clamp(70px, 10vw, 126px);
+}
+
+.experience__intro {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(260px, 0.55fr);
+  gap: clamp(24px, 5vw, 72px);
+  align-items: end;
+  margin-bottom: clamp(34px, 5vw, 62px);
+}
+
+.experience__eyebrow {
+  grid-column: 1 / -1;
+  width: max-content;
+  font-family: "Comic Sans MS", "Bradley Hand", "Marker Felt", cursive;
+  font-size: clamp(1.15rem, 2vw, 1.6rem);
+  transform: rotate(-3deg);
+}
+
+.experience__heading {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(3.2rem, 8vw, 7.2rem);
+  line-height: 0.9;
+  letter-spacing: 0;
+}
+
+.experience__summary {
+  position: relative;
+  padding: 18px 20px;
+  background: rgba(248, 226, 142, 0.7);
+  box-shadow: 6px 7px 0 rgba(17, 16, 13, 0.08);
+  transform: rotate(1.5deg);
+  font-family: "Comic Sans MS", "Bradley Hand", "Marker Felt", cursive;
+  font-size: clamp(17px, 1.65vw, 23px);
+  line-height: 1.35;
+}
+
+.experience__summary::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 22px;
+  width: 72px;
+  height: 24px;
+  background: rgba(255, 253, 250, 0.62);
+  transform: rotate(-8deg);
+}
+
+.experience__list {
+  position: relative;
+  display: grid;
+  gap: clamp(22px, 3vw, 34px);
+  padding-left: clamp(0px, 2vw, 28px);
+}
+
+.experience__list::before {
+  content: "";
+  position: absolute;
+  top: 22px;
+  bottom: 22px;
+  left: clamp(22px, 4vw, 54px);
+  width: 3px;
+  background: var(--ink);
+  opacity: 0.18;
+}
+
+.exp-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(132px, 180px) minmax(0, 1fr);
+  gap: clamp(18px, 3vw, 42px);
+  align-items: start;
+}
+
+.exp-card:nth-child(2n) .exp-card__paper {
+  transform: rotate(0.8deg);
+}
+
+.exp-card:nth-child(2n + 1) .exp-card__paper {
+  transform: rotate(-0.7deg);
+}
+
+.exp-card__date {
+  position: sticky;
+  top: 110px;
+  z-index: 1;
+  display: grid;
+  gap: 10px;
+  padding: 14px 12px;
+  background: #fffdfa;
+  border: 2px solid var(--ink);
+  box-shadow: 5px 5px 0 rgba(10, 10, 8, 0.2);
+  font-family: var(--font-mono);
+  transform: rotate(-2deg);
+}
+
+.exp-card__date::before {
+  content: "";
+  position: absolute;
+  left: -32px;
+  top: 20px;
+  width: 18px;
+  height: 18px;
+  border: 3px solid var(--ink);
+  background: var(--pink);
+  border-radius: 50%;
+  box-shadow: 0 0 0 7px var(--cream);
+}
+
+.exp-card__date span {
+  font-size: 11px;
+  line-height: 1.35;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--charcoal);
+}
+
+.exp-card__date strong {
+  font-size: clamp(2rem, 4vw, 3.8rem);
+  line-height: 0.9;
+  color: var(--ink);
+}
+
+.exp-card__paper {
+  position: relative;
+  min-height: 250px;
+  padding: clamp(24px, 4vw, 42px);
+  background:
+    repeating-linear-gradient(to bottom, transparent 0 37px, rgba(10, 10, 8, 0.09) 38px, transparent 39px),
+    #fffdfa;
+  border: 2px solid var(--ink);
+  box-shadow: 10px 11px 0 rgba(10, 10, 8, 0.12), 0 20px 34px rgba(20, 17, 10, 0.1);
+}
+
+.exp-card__paper::before {
+  content: "";
+  position: absolute;
+  top: -16px;
+  right: clamp(24px, 5vw, 72px);
+  width: 132px;
+  height: 34px;
+  background: var(--blue-tape);
+  transform: rotate(5deg);
+}
+
+.exp-card__pin {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 17px;
+  height: 17px;
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+  background: var(--yellow);
+  box-shadow: 3px 3px 0 rgba(10, 10, 8, 0.22);
+}
+
+.exp-card__role {
+  display: inline-block;
+  margin-bottom: 14px;
+  padding: 8px 12px;
+  background: var(--blue);
+  color: #fffdfa;
+  box-shadow: 4px 4px 0 rgba(10, 10, 8, 0.16);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.exp-card:nth-child(2n) .exp-card__role {
+  background: var(--pink);
+  color: var(--ink);
+}
+
+.exp-card:nth-child(3n) .exp-card__role {
+  background: var(--yellow);
+  color: var(--ink);
+}
+
+.exp-card__org {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.9rem, 3.4vw, 3.5rem);
+  line-height: 0.96;
+  max-width: 18ch;
+  text-wrap: balance;
+}
+
+.exp-card__context {
+  margin-top: 12px;
+  font-size: clamp(14px, 1.25vw, 16px);
+  line-height: 1.55;
+  color: var(--charcoal-soft);
+  max-width: 60ch;
+}
+
+.exp-card__highlights {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: clamp(22px, 3vw, 34px);
+}
+
+.exp-card__highlights li {
+  position: relative;
+  min-height: 118px;
+  padding: 16px 14px;
+  background: var(--cream-dim);
+  border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 rgba(10, 10, 8, 0.12);
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+
+.exp-card__stack {
+  display: inline-block;
+  margin-top: 18px;
+  padding: 10px 12px;
+  background: var(--ink);
+  color: #fffdfa;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+}
+
+.exp-education {
+  --edu-bg: var(--mint);
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(280px, 0.9fr) minmax(260px, 0.7fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: center;
+  margin-top: clamp(42px, 6vw, 78px);
+  padding: 104px clamp(24px, 5vw, 64px) clamp(34px, 5vw, 64px);
+  background: var(--edu-bg);
+  border: 3px solid var(--ink);
+  box-shadow: 12px 12px 0 rgba(10, 10, 8, 0.88), 0 24px 42px rgba(18, 14, 8, 0.14);
+  transform: rotate(-0.5deg);
+}
+
+.exp-education::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: min(340px, 58%);
+  height: 70px;
+  background: var(--yellow);
+  border-right: 3px solid var(--ink);
+  border-bottom: 3px solid var(--ink);
+  clip-path: polygon(0 0, 78% 0, 100% 100%, 0 100%);
+}
+
+.exp-education__copy {
+  position: relative;
+  z-index: 1;
+}
+
+.exp-education__eyebrow {
+  position: absolute;
+  z-index: 2;
+  top: 24px;
+  left: 24px;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.exp-education__school {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.4rem, 5vw, 5.5rem);
+  line-height: 0.92;
+  max-width: 9ch;
+  text-wrap: balance;
+}
+
+.exp-education__degree {
+  margin-top: 18px;
+  font-size: clamp(18px, 2vw, 25px);
+  font-weight: 700;
+}
+
+.exp-education__grad {
+  display: inline-block;
+  margin-top: 18px;
+  padding: 12px 16px;
+  background: rgba(255, 253, 250, 0.72);
+  box-shadow: 5px 6px 0 rgba(10, 10, 8, 0.12);
+  transform: rotate(1.5deg);
+  font-family: "Comic Sans MS", "Bradley Hand", "Marker Felt", cursive;
+  font-size: clamp(17px, 1.8vw, 22px);
+  color: var(--ink);
+}
+
+.exp-education__courses {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: clamp(28px, 4vw, 42px);
+}
+
+.exp-education__courses li {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 14px;
+  background: #fffdfa;
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 rgba(10, 10, 8, 0.22);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.exp-education__photo {
+  position: relative;
+  z-index: 1;
+  justify-self: end;
+  width: min(100%, 360px);
+  padding: 16px 16px 44px;
+  background: #fffdfa;
+  box-shadow: 0 20px 34px rgba(10, 10, 8, 0.22);
+  transform: rotate(4deg);
+}
+
+.exp-education__photo::before,
+.exp-education__photo::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: -17px;
+  width: 116px;
+  height: 34px;
+  background: var(--tape);
+}
+
+.exp-education__photo::before {
+  left: -22px;
+  transform: rotate(-33deg);
+}
+
+.exp-education__photo::after {
+  right: -20px;
+  transform: rotate(28deg);
+}
+
+.exp-education__photo-frame {
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+}
+
+.exp-education__photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.exp-education__photo p {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 13px;
+  text-align: center;
+  font-family: "Comic Sans MS", "Bradley Hand", "Marker Felt", cursive;
+  font-size: 17px;
+  color: var(--charcoal);
+}
+
+@media (max-width: 700px) {
+  .experience__intro {
+    grid-template-columns: 1fr;
+  }
+
+  .experience__list::before {
+    display: none;
+  }
+
+  .exp-card {
+    grid-template-columns: 1fr;
+  }
+
+  .exp-card__date {
+    position: relative;
+    top: auto;
+    width: max-content;
+  }
+
+  .exp-card__date::before {
+    display: none;
+  }
+
+  .exp-card__highlights {
+    grid-template-columns: 1fr;
+  }
+
+  .exp-education {
+    grid-template-columns: 1fr;
+    padding: 84px 22px 32px;
+  }
+
+  .exp-education__photo {
+    justify-self: center;
+  }
+
+  .exp-education__school {
+    max-width: none;
+  }
+}
