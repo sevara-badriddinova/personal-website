@@ -1,4 +1,3 @@
-import { IconBrackets, IconDatabase, IconGlobe, IconTerminalGlyph } from "./icons";
 import SkillCloud from "./SkillCloud";
 import "./About.css";
 
@@ -19,17 +18,11 @@ export default function About() {
         <div className="about__copy">
           <h2 className="about__label">what's up</h2>
           <p className="about__statement">
-            Hi, I'm Sevara. I build backend systems that keep working as more
-            people use them. My work spans databases <IconDatabase className="about__glyph" aria-hidden />,
-            distributed systems <IconGlobe className="about__glyph" aria-hidden />,
-            payment platforms, and developer tools <IconTerminalGlyph className="about__glyph" aria-hidden />.
-            I care about making them fast and easy to maintain <IconBrackets className="about__glyph" aria-hidden />.
+            Hi, I'm Sevara! I build backend systems that stay reliable as they scale. My work spans databases, distributed systems, payment platforms and developer tools, with a focus on performance and maintainability
           </p>
 
           <p className="about__micro">
-            I like figuring out why something is slow or keeps breaking, then
-            making it simpler. I start by following the data, finding the
-            bottleneck, and working out what actually needs to change.
+            I like figuring out why something is slow, unreliable or more complicated than it needs to be. I usually start by following the data, finding the bottleneck and fixing the part that actually matters
           </p>
         </div>
       </div>

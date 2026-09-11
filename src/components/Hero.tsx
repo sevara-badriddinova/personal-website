@@ -68,7 +68,8 @@ export default function Hero() {
       <div className="hero__stage">
         <div className="hero__grid">
           <div className="hero__copy">
-            <span className="hero__sticky hero__sticky--green">builds reliable things</span>
+            <div className="hero__title-frame">
+            <span className="hero__sticky hero__sticky--green">making chaos compile</span>
           <h1 className="hero__headline">
             <span className="hero__name" data-reveal>
               Sevara
@@ -84,14 +85,15 @@ export default function Hero() {
               </span>
             </span>
           </h1>
+          </div>
       <div className="hero__foot">
         <a className="hero__cta" href="#contact">Contact me</a>
       </div>
         </div>
 
         <div className="hero__aside">
-          <span className="hero__sticky hero__sticky--yellow">Me in Boston!</span>
           <div className="hero__image-wrap">
+            <span className="hero__sticky hero__sticky--yellow">Me in Boston!</span>
             <img
               className="hero__image"
               src={HERO_IMG}
