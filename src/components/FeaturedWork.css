@@ -116,7 +116,7 @@
 .work-folder__title {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(2.6rem, 5.4vw, 5.8rem);
+  font-size: clamp(2.4rem, 4.5vw, 4.2rem);
   line-height: 0.9;
   letter-spacing: 0;
   text-wrap: balance;
@@ -448,3 +448,16 @@
 .project-photo__note:nth-child(2) { background: #ffa5ce; transform: rotate(2deg); }
 .project-photo__note:nth-child(3) { background: #f5df77; transform: rotate(-1deg); }
 .project-photo__note strong { display: block; margin-bottom: 5px; font-size: 17px; }
+
+.work-folder__copy, .project-photo { min-width: 0; }
+.work-folder__title { overflow-wrap: anywhere; }
+.work-folder__tags span { max-width: 100%; padding-block: 8px; }
+.project-photo__note { min-width: 0; overflow-wrap: anywhere; }
+@media (max-width: 620px) {
+  .work-folder__title { font-size: clamp(2rem, 8vw, 3rem); }
+  .project-photo--bilimly { width: calc(100% - 12px); justify-self: center; padding: 10px; }
+  .project-photo--bilimly::before, .project-photo--bilimly::after { width: 80px; height: 26px; }
+  .project-photo--bilimly::before { left: -8px; }
+  .project-photo--bilimly::after { right: -8px; }
+  .featured__heading { font-size: clamp(2.8rem, 12vw, 4.5rem); }
+}

@@ -76,6 +76,7 @@ html {
       var(--cream) 36px
     );
   scroll-behavior: smooth;
+  scroll-padding-top: 100px;
 }
 
 body {
@@ -100,7 +101,7 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden;
+
 }
 
 body::before {
@@ -183,4 +184,15 @@ p {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+@media (max-width: 980px) {
+  html { scroll-padding-top: 156px; }
+}
+@media (max-width: 480px) {
+  :root { --gutter: 20px; }
+  body { background-attachment: scroll; }
+}
+@media (max-height: 500px) and (orientation: landscape) {
+  html { scroll-padding-top: 20px; }
 }

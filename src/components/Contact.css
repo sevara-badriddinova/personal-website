@@ -125,3 +125,14 @@
     overflow: visible;
   }
 }
+
+.contact__email { max-width: 100%; overflow-wrap: anywhere; min-height: 44px; }
+@media (max-width: 620px) {
+  .contact { padding-block: 64px 80px; }
+  .contact__headline { font-size: clamp(2.8rem, 12vw, 4.5rem); padding: 34px 14px; }
+  .contact__reach { width: 100%; padding: 22px 14px; }
+  .contact__label { font-size: 12px; letter-spacing: 0.025em; }
+  .contact__email { font-size: clamp(15px, 4.4vw, 20px); gap: 5px; }
+  .contact__cursor { width: 20px; height: 20px; }
+  .contact__headline::before, .contact__headline::after { width: 85px; }
+}

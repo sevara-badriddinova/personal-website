@@ -41,7 +41,10 @@
 .hero__copy {
   position: relative;
   min-width: 0;
-  justify-self: end;
+  justify-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .hero__headline {
@@ -63,7 +66,7 @@
   min-width: 0;
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(4.8rem, 12vw, 12.5rem);
+  font-size: clamp(4.8rem, 11vw, 10rem);
   letter-spacing: 0;
   color: var(--ink);
   margin-bottom: clamp(8px, 1vw, 14px);
@@ -174,7 +177,7 @@
 }
 
 .hero__sticky {
-  position: absolute;
+  position: relative;
   z-index: 2;
   display: inline-flex;
   align-items: center;
@@ -186,7 +189,8 @@
   font-size: clamp(0.95rem, 1.25vw, 1.2rem);
   line-height: 1.1;
   color: var(--ink);
-  white-space: nowrap;
+  white-space: normal;
+  max-width: 100%;
 }
 
 .hero__sticky::before {
@@ -201,17 +205,15 @@
 }
 
 .hero__sticky--green {
-  top: 14px;
-  left: clamp(0px, 6vw, 110px);
   background: #a8dfca;
   transform: rotate(-5deg);
+  margin-bottom: 22px;
 }
-
 .hero__sticky--yellow {
-  top: 18px;
-  right: clamp(0px, 8vw, 140px);
   background: #f5df77;
   transform: rotate(4deg);
+  align-self: center;
+  margin-bottom: 30px;
 }
 
 .hero__cta {
@@ -247,7 +249,7 @@
     justify-self: center;
   }
   .hero__aside {
-    padding-top: 12px;
+    padding-top: 30px;
     align-items: center;
     text-align: center;
     transform: none;
@@ -268,7 +270,7 @@
     font-size: clamp(1.45rem, 9vw, 2.5rem);
   }
   .hero__image-wrap {
-    max-width: min(320px, 100%);
+    max-width: min(300px, calc(100% - 32px));
   }
   .hero__foot {
     justify-content: center;
@@ -281,4 +283,26 @@
   .hero__headline {
     width: 100%;
   }
+}
+
+.hero__meta { align-self: center; }
+@media (max-width: 980px) {
+  .hero__grid { gap: 34px; }
+}
+@media (max-width: 560px) {
+  .hero__headline { padding-inline: 18px; }
+  .hero__sticky { margin: 0 0 24px; min-height: 54px; }
+  .hero__sticky--yellow { margin-bottom: 28px; }
+  .hero__image-wrap::before, .hero__image-wrap::after { width: 92px; height: 28px; top: -10px; }
+  .hero__image-wrap::before { left: -14px; }
+  .hero__image-wrap::after { right: -14px; }
+}
+
+@media (min-width: 981px) {
+  .hero { padding-top: clamp(32px, 5vh, 54px); }
+  .hero__grid { padding-top: 24px; }
+  .hero__name { font-size: clamp(4.8rem, 10vw, 9rem); }
+  .hero__image-wrap { max-width: 270px; padding: 12px 12px 28px; }
+  .hero__sticky { min-height: 54px; }
+  .hero__sticky--yellow { margin-bottom: 18px; }
 }

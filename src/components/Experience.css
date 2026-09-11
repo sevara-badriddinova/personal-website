@@ -202,7 +202,7 @@
 
 .exp-card__highlights {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
   gap: 12px;
   margin-top: clamp(22px, 3vw, 34px);
 }
@@ -380,7 +380,7 @@
   color: var(--charcoal);
 }
 
-@media (max-width: 700px) {
+@media (max-width: 980px) {
   .experience__intro {
     grid-template-columns: 1fr;
   }
@@ -419,4 +419,17 @@
   .exp-education__school {
     max-width: none;
   }
+}
+
+.exp-card__paper, .exp-education__copy { min-width: 0; }
+.exp-card__stack, .exp-card__role { max-width: 100%; overflow-wrap: anywhere; }
+.exp-education__courses li { max-width: 100%; padding-block: 8px; }
+@media (max-width: 480px) {
+  .exp-card__paper { padding: 30px 18px 22px; }
+  .exp-card__highlights li { font-size: 14px; }
+  .exp-card__org { font-size: clamp(1.65rem, 7vw, 2.1rem); overflow-wrap: anywhere; }
+  .exp-education { padding-inline: 18px; }
+  .exp-education__school { font-size: clamp(2rem, 9vw, 2.8rem); }
+  .exp-education__photo { width: calc(100% - 18px); margin-top: 12px; }
+  .exp-education__photo p { font-size: 14px; }
 }

@@ -66,10 +66,9 @@ export default function Hero() {
     <section className="hero" id="top" ref={scope}>
       <p className="hero__eyebrow">my name is</p>
       <div className="hero__stage">
-        <span className="hero__sticky hero__sticky--green">builds reliable things</span>
-        <span className="hero__sticky hero__sticky--yellow">Me in Boston!</span>
         <div className="hero__grid">
           <div className="hero__copy">
+            <span className="hero__sticky hero__sticky--green">builds reliable things</span>
           <h1 className="hero__headline">
             <span className="hero__name" data-reveal>
               Sevara
@@ -91,6 +90,7 @@ export default function Hero() {
         </div>
 
         <div className="hero__aside">
+          <span className="hero__sticky hero__sticky--yellow">Me in Boston!</span>
           <div className="hero__image-wrap">
             <img
               className="hero__image"

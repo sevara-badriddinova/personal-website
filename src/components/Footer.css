@@ -18,12 +18,15 @@
 .footer__links {
   display: flex;
   gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .footer__links a {
   border: 1px solid var(--cream-line);
   border-radius: var(--radius-pill);
-  padding: 8px 16px;
+  padding: 12px 16px;
+  min-height: 44px;
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
