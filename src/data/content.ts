@@ -1,189 +1,229 @@
-export type Project = {
-  slug: string;
-  name: string;
-  kicker: string;
-  description: string;
-  stack: string[];
-  metrics: { label: string; value: string }[];
-  github: string;
-  live?: string;
-  image?: string;
-  treatment: "dark-topology" | "dashboard" | "product";
+// All site copy lives here. Components only render it.
+
+export const site = {
+  name: "Sevara Badriddinova",
+  role: "Backend software engineer building fintech systems.",
+  resume: "/Sevara_Badriddinova_Resume.pdf",
 };
 
-export const projects: Project[] = [
-  {
-    slug: "devtunnel",
-    image: "/images/projects/devtunnel.png",
-    name: "DevTunnel",
-    kicker: "Go · Python · WebSockets · Networking",
-    description:
-      "A tunneling tool that forwards requests to local servers over persistent WebSocket connections. It handles concurrent requests and routes each one to the right client by subdomain.",
-    stack: ["Go", "Python", "WebSockets", "HTTP"],
-    metrics: [
-      { label: "Avg. forwarding latency", value: "~7 ms" },
-      { label: "Routing", value: "Subdomain-based" },
-      { label: "Concurrency model", value: "Goroutines + channels" },
-    ],
-    github: "https://github.com/sevara-badriddinova/eltunnel",
-    treatment: "dark-topology",
-  },
-  {
-    slug: "rate-limiter",
-    image: "/images/projects/rate-limiter.png",
-    name: "Distributed Rate Limiter",
-    kicker: "Java · Spring Boot · Redis · Lua · Kubernetes",
-    description:
-      "A distributed token-bucket rate limiter using Redis and atomic Lua execution, load-tested for high-throughput traffic and horizontal scaling.",
-    stack: ["Java", "Spring Boot", "Redis", "Lua", "Docker", "Kubernetes", "Prometheus", "Grafana", "k6"],
-    metrics: [
-      { label: "Sustained throughput", value: "7,500 req/s" },
-      { label: "P95 latency", value: "11 ms" },
-      { label: "HPA scaling", value: "2 → 6 pods" },
-    ],
-    github: "https://github.com/sevara-badriddinova/ratelimiter",
-    treatment: "dashboard",
-  },
-  {
-    slug: "bilimly",
-    image: "/images/projects/bilimly.png",
-    name: "Bilimly.ai",
-    kicker: "React · Spring Boot · PostgreSQL · Redis",
-    description:
-      "An AI tutoring platform for learning in multiple languages. I built JWT authentication and role-based access, and added two layers of Redis caching to cut repeated model calls.",
-    stack: ["React", "TypeScript", "Spring Boot", "PostgreSQL", "Redis", "Claude API"],
-    metrics: [
-      { label: "Daily active users", value: "300+" },
-      { label: "Fewer repeated LLM calls", value: "~60%" },
-      { label: "Auth", value: "JWT · role-based" },
-    ],
-    github: "https://github.com/sevara-badriddinova/bilimly.ai",
-    live: "https://sevara-badriddinova.vercel.app",
-    treatment: "product",
-  },
-  {
-    slug: "concurrent-search-server",
-    image: "/images/projects/concurrent-search-server.png",
-    name: "Concurrent Search Server",
-    kicker: "C++ · STL · Multithreading · CMake",
-    description:
-      "Built a C++17 search server with an inverted index and mutex-protected shared state for concurrent document updates and queries. Tested synchronization with std::thread and CMake under repeated multithreaded operations.",
-    stack: ["C++17", "Linux", "STL", "Multithreading", "CMake"],
-    metrics: [
-      { label: "Indexing model", value: "Inverted index" },
-      { label: "Ranking", value: "Term frequency" },
-      { label: "Concurrency", value: "Mutex-protected" },
-    ],
-    github: "https://github.com/sevara-badriddinova/search-server",
-    treatment: "dark-topology",
-  },
-  {
-    slug: "matcha-restock-alert",
-    image: "/images/projects/matcha-restock-alert.png",
-    name: "Matcha Restock Alert",
-    kicker: "Python · BeautifulSoup · Requests · Telegram Bot API · GitHub Actions",
-    description:
-      "A bot that checks Marukyu Koyamaen for restocks and sends alerts on Telegram. It runs on GitHub Actions, checks products in parallel, and saves inventory and subscriber data between runs. If a request fails, it keeps the last known inventory intact.",
-    stack: ["Python", "BeautifulSoup", "Requests", "Telegram Bot API", "GitHub Actions"],
-    metrics: [
-      { label: "Schedule", value: "GitHub Actions" },
-      { label: "Checks", value: "Parallel pages" },
-      { label: "Alerts", value: "Telegram" },
-    ],
-    github: "https://github.com/sevara-badriddinova/marcha-restock-alert",
-    treatment: "dashboard",
-  },
-  {
-    slug: "stock-market-visualizer",
-    image: "/images/projects/stock-market-visualizer.png",
-    name: "Stock Market Visualizer",
-    kicker: "C# · .NET · WinForms · Data Visualization",
-    description:
-      "Built a desktop application for exploring historical stock data from OHLCV CSV files. Added date-range filtering, candlestick and volume visualization, dynamic chart scaling, and tabular views to make price movements and trading activity easier to inspect.",
-    stack: ["C#", ".NET", "WinForms", "Data Visualization"],
-    metrics: [
-      { label: "Input", value: "OHLCV CSV" },
-      { label: "Charts", value: "Candlestick" },
-      { label: "Views", value: "Chart + table" },
-    ],
-    github: "https://github.com/sevara-badriddinova/StockAnalysisProject",
-    treatment: "product",
-  },
-];
-
-export type ExperienceItem = {
-  org: string;
-  role: string;
-  context: string;
-  date: string;
-  stack: string;
-  highlights: string[];
-};
-
-export const experience: ExperienceItem[] = [
-  {
-    org: "Maya Software Studio",
-    role: "Software Engineering Intern",
-    context: "Subsidiary of Mayasoft, building fintech services for banking clients",
-    date: "May 2026 — Aug 2026",
-    stack: "Java · Python · Spring Boot · SQL · PostgreSQL",
-    highlights: [
-      "Proposed and built a risk-decisioning system letting partner banks evaluate merchant loans without direct access to internal data, across 35,000+ terminals and 15,000+ merchants",
-      "Reduced the time needed for bank lending decisions from 7–10 business days to minutes",
-      "Optimized the risk-scoring pipeline and REST APIs, reducing computation from 106s to 3s and query latency to 5–7ms P95",
-    ],
-  },
-  {
-    org: "Mayasoft — MARTA SoftPOS",
-    role: "Software Engineer",
-    context: "Platform enabling Android devices to accept Visa/Mastercard payments",
-    date: "Feb 2023 — Sep 2024",
-    stack: "React · Spring Boot · PostgreSQL · AWS S3",
-    highlights: [
-      "Built a centralized transactions dashboard giving real-time visibility into 20,000+ daily transactions, replacing manual Excel reporting",
-      "Owned merchant onboarding end to end: document upload, identity verification, state tracking and audit history, cutting manual review by 40%",
-    ],
-  },
-  {
-    org: "Google Developer Student Group, USF",
-    role: "Community Lead",
-    context: "Student technical community",
-    date: "Jul 2026 — Present",
-    stack: "Leadership · Technical communication",
-    highlights: [
-      "Led events for 200+ students, including hackathons and technical workshops",
-      "Worked with the leadership board to explain engineering concepts to students with different levels of technical experience",
-    ],
-  },
-  {
-    org: "University of South Florida",
-    role: "IT Student Technician / AV Technician",
-    context: "Campus technology infrastructure",
-    date: "May 2023 — Present",
-    stack: "Hardware · Networking · Support",
-    highlights: [
-      "Supported technology infrastructure across 800+ university rooms",
-      "Reduced downtime by roughly 40% through proactive maintenance",
-    ],
-  },
-];
-
-export const skillGroups = [
-  { name: "Languages", color: "pink", skills: ["Java", "Python", "Go", "C", "C++17", "C#", "JavaScript", "TypeScript", "SQL", "Lua"] },
-  { name: "Backend & APIs", color: "yellow", skills: ["Spring Boot", ".NET", "REST APIs", "WebSockets", "HTTP", "Microservices", "JWT", "RBAC", "Rate Limiting", "Caching", "PostgreSQL", "Redis"] },
-  { name: "Cloud & Infrastructure", color: "mint", skills: ["AWS", "AWS S3", "Docker", "Kubernetes", "Kubernetes HPA", "Linux"] },
-  { name: "Tools & Delivery", color: "blue", skills: ["Git", "GitHub", "GitHub Actions", "CI/CD", "Maven", "CMake", "Jira"] },
-];
-
-export const education = {
-  school: "University of South Florida",
-  degree: "B.S. Computer Science",
-  graduation: "December 2026",
-  coursework: ["Distributed Systems", "Operating Systems", "Computer Networks", "Databases", "Computer Architecture", "Algorithms"],
-};
+export const projectAnchor = (slug: string) => `project-${slug}`;
 
 export const contact = {
   email: "bsevaraqq@gmail.com",
   linkedin: "https://www.linkedin.com/in/sevarabadriddinova",
   github: "https://github.com/sevara-badriddinova",
 };
+
+// The `recent.log` panel in the hero. `short` is the label used on phones.
+export type LogEntry = { scope: string; label: string; short?: string; value: string };
+
+export const recentLog: LogEntry[] = [
+  { scope: "maya", label: "risk scoring", value: "106 s → 3.3 s" },
+  { scope: "maya", label: "score API, load test", short: "score API", value: "7 ms p95" },
+  { scope: "mayasoft", label: "transactions / day", short: "txns / day", value: "20,000+" },
+  { scope: "jobradar", label: "LLM calls", value: "−97.8%" },
+  { scope: "bilimly", label: "daily users", value: "300+" },
+];
+
+export type ExperienceItem = {
+  handle: string;
+  dates: string;
+  role: string;
+  context: string;
+  points?: string[];
+  text?: string;
+  stack?: string;
+};
+
+export const experience: ExperienceItem[] = [
+  {
+    handle: "maya-software-studio",
+    dates: "2026-05 → 2026-08",
+    role: "Software Engineering Intern",
+    context: "Mayasoft subsidiary building fintech services for banking clients",
+    points: [
+      "Proposed and built a rule-based merchant risk-scoring service for bank lending decisions, and integrated a teammate’s ML model into it. Now in production, designed for 15,000+ merchants across 35,000+ terminals.",
+      "Cut risk-scoring computation from 106 s to 3.3 s by replacing per-merchant SQL queries with a single set-based aggregation, which removed the repeated database scans.",
+      "Built Java/Spring Boot REST APIs that serve risk scores with their explanations: 7 ms P95 read and 50 ms P95 write latency in load tests.",
+    ],
+    stack: "java · spring-boot · sql · rest",
+  },
+  {
+    handle: "mayasoft",
+    dates: "2023-02 → 2024-09",
+    role: "Software Engineer",
+    context: "MARTA SoftPOS, which lets Android phones accept contactless Visa and Mastercard payments",
+    points: [
+      "Built a transactions dashboard (Spring Boot APIs, React UI) that replaced manual Excel reporting, giving operations staff real-time visibility into 20,000+ daily transactions and tools to investigate and reconcile disputes.",
+      "Owned merchant onboarding end to end: document upload and identity verification with validation, state tracking and audit history. Reduced manual review by 40%.",
+    ],
+    stack: "spring-boot · react · postgresql · aws-s3",
+  },
+  {
+    handle: "gdg-on-campus-usf",
+    dates: "2026-07 → now",
+    role: "Community Lead",
+    context: "Google Developer Groups on Campus, University of South Florida",
+    points: [
+      "Organize hackathons for 200+ students, coordinating planning and logistics and explaining technical concepts to participants at every experience level.",
+    ],
+  },
+  {
+    handle: "usf",
+    dates: "2026-12",
+    role: "B.S. Computer Science",
+    context: "University of South Florida, College of Engineering",
+    text: "GPA 3.56 / 4.00. Coursework in data structures and algorithms, database systems, computer architecture and operating systems.",
+  },
+];
+
+export type ProjectLink = { label: string; href: string };
+
+export type Project = {
+  slug: string;
+  name: string;
+  tags: string;
+  summary: string;
+  points?: string[];
+  note?: string;
+  image: { src: string; file: string; alt: string };
+  links: ProjectLink[];
+  featured?: boolean;
+};
+
+const repo = (name: string) => `https://github.com/sevara-badriddinova/${name}`;
+
+export const projects: Project[] = [
+  {
+    slug: "jobradar",
+    name: "JobRadar",
+    featured: true,
+    tags: "python · postgresql · claude-api · docker · gcp",
+    summary:
+      "A job discovery platform, deployed on GCP, that monitors 12,000+ company career boards across 8 hiring platforms.",
+    points: [
+      "Automated eligibility filtering runs before the Claude matching step, so only eligible postings reach the model. That cut LLM calls by 97.8%.",
+      "Ingested 736K+ postings with duplicate detection and job-change tracking. Bounded batches, skipped unchanged snapshots and changed-only writes raised PostgreSQL throughput in production-replica benchmarks.",
+    ],
+    image: {
+      src: "/images/projects/jobradar.webp",
+      file: "projects/jobradar/diagram.png",
+      alt: "Diagram: career boards are polled into PostgreSQL, which deduplicates postings and tracks changes; new and changed postings pass through a deterministic eligibility filter, and only eligible postings go to Claude for matching. 97.8% fewer LLM calls, 736K+ postings ingested.",
+    },
+    links: [{ label: "git clone", href: repo("jobradar") }],
+  },
+  {
+    slug: "bilimly",
+    name: "Bilimly.ai",
+    featured: true,
+    tags: "react · spring-boot · postgresql · redis",
+    summary:
+      "A multilingual AI language-learning platform with Claude-powered tutoring and personalized exercises, used by 300+ people a day.",
+    points: [
+      "Built the React front end and Spring Boot back end that serve the tutoring and exercises.",
+      "Implemented JWT authentication, role-based access control, Redis caching and API rate limiting in Spring Boot.",
+    ],
+    image: {
+      src: "/images/projects/bilimly.webp",
+      file: "projects/bilimly/screenshot.png",
+      alt: "Bilimly.ai speaking practice screen: a sentence to repeat aloud, Listen and Retry buttons, a microphone button, and conversation scenarios such as an IT interview",
+    },
+    links: [
+      { label: "open site", href: "https://bilimly-ai.vercel.app" },
+      { label: "git clone", href: repo("bilimly.ai") },
+    ],
+  },
+  {
+    slug: "eltunnel",
+    name: "Eltunnel",
+    featured: true,
+    tags: "go · python · websockets · linux",
+    summary:
+      "A self-hosted HTTP tunnel that exposes local apps at public URLs over persistent WebSocket connections.",
+    points: [
+      "A Go server and a Python client talk over a custom request/response protocol.",
+      "Concurrent requests run on goroutines and channels, with request-ID correlation and thread-safe routing so every response finds its caller.",
+    ],
+    image: {
+      src: "/images/projects/eltunnel.webp",
+      file: "projects/eltunnel/diagram.png",
+      alt: "Diagram: browser requests go to a Go server with subdomain routing, through a WebSocket tunnel to a Python client, then to the local app on localhost, with responses returning the same way",
+    },
+    links: [{ label: "git clone", href: repo("eltunnel") }],
+  },
+  {
+    slug: "ratelimiter",
+    name: "Distributed Rate Limiter",
+    tags: "java · spring-boot · redis · lua",
+    summary:
+      "A token-bucket rate limiter shared across Spring Boot instances. Redis with atomic Lua scripts makes every allow-or-reject decision consistent.",
+    note: "7,500 req/s at 11 ms p95 in k6 load tests",
+    image: {
+      src: "/images/projects/rate-limiter.webp",
+      file: "projects/ratelimiter/diagram.png",
+      alt: "Diagram: requests reach Spring Boot instances, which make an atomic token check against a shared Redis and Lua token bucket that refills over time; a request is allowed if a token is available and gets a 429 if the bucket is empty",
+    },
+    links: [{ label: "git clone", href: repo("ratelimiter") }],
+  },
+  {
+    slug: "search-server",
+    name: "Concurrent Search Server",
+    tags: "c++17 · stl · multithreading · cmake",
+    summary:
+      "A C++17 search server built on an inverted index. Mutex-protected shared state lets document updates and queries run at the same time.",
+    note: "tested with std::thread under repeated concurrent updates and queries",
+    image: {
+      src: "/images/projects/search-server.webp",
+      file: "projects/search-server/diagram.png",
+      alt: "Diagram: document updates and queries both go through mutex-protected access to an inverted index mapping terms to document IDs, which returns search results",
+    },
+    links: [{ label: "git clone", href: repo("search-server") }],
+  },
+  {
+    slug: "matcha-restock-bot",
+    name: "Matcha Restock Bot",
+    tags: "python · github-actions · telegram-bot-api",
+    summary:
+      "Checks Marukyu Koyamaen product pages in parallel and sends a Telegram alert when matcha comes back in stock. If a request fails, the last known inventory stays intact.",
+    note: "every 5 min during Japan business hours · state saved between runs",
+    image: {
+      src: "/images/projects/matcha-restock-bot.webp",
+      file: "projects/matcha-restock-bot/diagram.png",
+      alt: "Diagram: scheduled GitHub Actions runs check matcha product pages in parallel, compare and save inventory and subscribers to state.json, and send Telegram alerts only when an item is newly back in stock",
+    },
+    links: [{ label: "git clone", href: repo("marcha-restock-alert") }],
+  },
+  {
+    slug: "stock-data-explorer",
+    name: "Stock Data Explorer",
+    tags: "c# · .net · winforms",
+    summary:
+      "A desktop app for exploring historical stock data from OHLCV CSV files, with date-range filtering, candlestick and volume charts, and a table view.",
+    note: "dynamic chart scaling · chart and table views",
+    image: {
+      src: "/images/projects/stock-data-explorer.webp",
+      file: "projects/stock-data-explorer/diagram.png",
+      alt: "Diagram: an OHLCV CSV file passes through a date-range filter into a desktop window with candlestick and volume charts above a table view",
+    },
+    links: [{ label: "git clone", href: repo("StockAnalysisProject") }],
+  },
+];
+
+// Posts live in src/posts/*.md (see src/data/posts.ts).
+
+export const about = {
+  title: "I like figuring out why something is slow.",
+  lead: "I follow the data to the bottleneck and fix the part that matters.",
+  photo: {
+    src: "/images/boston.webp",
+    file: "~/photos/boston.jpg",
+    alt: "Sevara on a bridge over the frozen Charles River with the Boston skyline behind her",
+  },
+};
+
+export const stack: { key: string; value: string }[] = [
+  { key: "languages", value: "Java, Python, Go, SQL, TypeScript, JavaScript, C/C++" },
+  { key: "backend", value: "Spring Boot, Node.js, React, PostgreSQL, Redis, REST APIs, WebSockets" },
+  { key: "cloud", value: "AWS (EC2, S3), GCP, Docker, Linux, GitHub Actions, Maven, k6" },
+  { key: "ai", value: "Claude API, LLM integration" },
+];
