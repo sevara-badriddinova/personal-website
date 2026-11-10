@@ -1,55 +1,57 @@
 ---
 title: Will It Break in Prod?
-description: Your tests check one user at a time. Production never sends you one user at a time. How to use k6 to find your app's limit before your users do.
+description: Your app works when you test it alone. Here's how to find out what happens when hundreds of people use it at once, with a free tool called k6.
 date: 2026-11-10
 tags: performance, testing, k6
 cover: /images/writing/will-it-break-in-prod/cover.webp
-coverAlt: A brushed-metal capacity plate, like the one inside an elevator, that reads "This API. Max ___ requests per second. p95 under 300 ms. Errors under 1%. Load tested with k6."
+coverAlt: A metal capacity plate, like the one inside an elevator, that reads "This API. Max ___ requests per second." A sticky note next to the blank says "find this number".
 ---
 
-**Your app passed every test. That proves it works for one person at a time. Production never sends you one person at a time.**
+**Your app works when you test it. But when you test it, you're one person. Real users show up hundreds at a time.**
 
-![A brushed-metal capacity plate, like the one inside an elevator, that reads "This API. Max ___ requests per second. p95 under 300 ms. Errors under 1%. Load tested with k6."](/images/writing/will-it-break-in-prod/cover.webp)
+![A metal capacity plate, like the one inside an elevator, that reads "This API. Max ___ requests per second." A sticky note next to the blank says "find this number".](/images/writing/will-it-break-in-prod/cover.webp)
 
-Every elevator has a small metal plate inside: *max 13 persons, 1,000 kg*. Nobody guessed that number. Someone loaded the elevator until they knew where the limit was, then wrote it down with a margin.
+Every elevator has a small metal plate inside that says something like *max 13 people*. Nobody guessed that number. Someone loaded the elevator until they found its limit, then wrote it down with some room to spare.
 
-Most APIs ship without that plate. We know the endpoint returns the right answer. We don't know how many people it can serve before it slows down, starts timing out, or falls over. Usually we find out on the day real traffic shows up.
+Most apps don't have that plate. We know the app gives the right answer. We don't know how many people it can handle before it gets slow or stops working. Usually we find out the hard way, on the day a lot of people show up.
 
-This post is about finding that number first, with k6.
+This post shows how to find that number before your users do, with a free tool called k6.
 
-### Aren't My Tests Enough?
+### Why Don't My Tests Catch This?
 
-Unit and integration tests answer one question: *is it correct?* They usually ask it with a single caller, on a quiet machine, against a tiny database.
+Normal tests check that your code gives the right answer. They do it one request at a time, on a quiet computer, with a small database. That's not what production looks like.
 
-The bugs that take an app down in production mostly don't exist at that scale. They show up when requests overlap:
+Most things that break under load only break when many requests arrive at the same time:
 
-- **The connection pool runs out.** Spring Boot's default pool (HikariCP) holds 10 database connections. Request 11 waits in line, and so does everyone after it.
-- **Threads run out.** Tomcat handles 200 requests at a time by default. Request 201 queues.
-- **A query that takes 5 ms alone** can take far longer when 50 copies of it fight over the same rows.
-- **An N+1 query**, one query for the list and one more for every item in it, is invisible with one user and painful with a hundred.
-- **Memory fills up slowly**, and garbage collection pauses start showing up in your response times hours later.
+- **Too many requests wait for the database.** Your app keeps a small set of database connections and shares them. Spring Boot's default is 10. If 50 requests need the database at once, 40 of them wait in line.
+- **The server runs out of workers.** A server works on a limited number of requests at once (200 by default in Spring Boot). Everyone else waits.
+- **Requests get in each other's way.** A query that takes 5 ms on its own can take much longer when 50 copies of it try to change the same rows.
+- **Small waste adds up.** Code that runs one extra database query for every item in a list is fine with one user and painful with a hundred.
+- **Memory slowly fills up.** Everything looks fine for a while, then the app starts pausing to clean up memory and responses get slow.
 
-None of this fails a unit test. It usually goes like this:
+None of these show up in a normal test. In real life it goes like this:
 
 > **Me:** It's fast. 12 ms on my laptop.
 >
 > **Production, Monday 9 AM:** Cool. Here are 400 people.
 
-### So What Is k6?
+### What Is k6?
 
-[k6](https://grafana.com/oss/k6/) is an open-source load testing tool from Grafana Labs. Its own tagline is "like unit testing, for performance," which is a fair description. You write the test in JavaScript, and k6 runs it from a single Go binary, so one laptop can pretend to be hundreds of users.
+k6 is a free, open-source tool from Grafana Labs for load testing: sending a lot of traffic to your app on purpose to see how it holds up.
 
-The main idea is the **virtual user (VU)**. A VU is a loop that runs your test function over and over, like one person clicking through your app. Ask for 50 VUs and k6 runs 50 of those loops at the same time, then measures every request they make.
+You write a short JavaScript script that describes what one visitor does, like "open this page." Then you tell k6 how many visitors to pretend to be. k6 calls these pretend visitors **virtual users**. Each one runs your script over and over, and k6 times every request and counts the ones that fail.
 
-On a Mac, installing it is one line:
+![A diagram in four steps. k6 runs on your laptop. It starts virtual users, which are pretend visitors that repeat your script. They send requests to your app. k6 then reports how fast your app answered and how many requests failed.](/images/writing/will-it-break-in-prod/how-k6-works.webp "k6 pretends to be many visitors at once, then tells you how your app held up.")
+
+To install it on a Mac:
 
 ```bash
 brew install k6
 ```
 
-### What Does the Simplest Test Look Like?
+### Your First Test
 
-Start with a **smoke test**: one user, thirty seconds. It tells you nothing about load yet. It tells you the script works and the endpoint answers.
+Start small. This script pretends to be one visitor for 30 seconds:
 
 ```js
 import http from "k6/http";
@@ -71,25 +73,30 @@ export default function () {
 }
 ```
 
-Run it with `k6 run smoke.js`. When it finishes, k6 prints a summary: how many requests went out, how many failed, and how long they took.
+Save it as `smoke.js` and run `k6 run smoke.js`. Here's what each part does:
 
-`check` works like an assertion that doesn't stop the test. It counts passes and failures, so you see "98% of responses were 200" instead of a crash on the first bad one.
+- `vus: 1` and `duration: "30s"`: one virtual user, for 30 seconds.
+- `http.get(...)`: the visitor opens this address.
+- `check(...)`: makes sure the answer is right (status 200 means "OK"). A failed check doesn't stop the test. k6 just counts how many passed.
+- `sleep(1)`: wait one second, like a real person reading the page before clicking again.
+
+This is called a **smoke test**. It doesn't tell you anything about heavy traffic yet. It just proves the script works before you turn up the volume.
 
 ### What Does "Fast Enough" Mean?
 
-Before adding users, decide what passing looks like. Here's the trap: **averages lie.**
+Before adding more users, decide what "good" looks like. Watch out for one trap: **the average lies.**
 
-Say 100 requests come in. 90 of them take 20 ms and 10 of them take 2 seconds.
+Imagine 100 requests. 90 of them take 20 ms. The other 10 take 2 full seconds.
 
-| Stat | Value | What it tells you |
+| Measure | Result | What it makes you think |
 | --- | --- | --- |
-| Average | 218 ms | "Looks fine." |
-| Median (p50) | 20 ms | "Looks great." |
-| p95 | 2,000 ms | Real people waited two seconds. |
+| Average | 218 ms | "Fine." |
+| Median | 20 ms | "Great." |
+| p95 | 2,000 ms | "Some people waited two seconds." |
 
-p95 is the time that 95% of requests finished within. It looks at the slow end, and the slow end is where users get annoyed and leave.
+**p95** is the time that 95 out of 100 requests finished within. It looks at the slowest part of your traffic, and that's the part people notice.
 
-In k6 you write the passing line down as a **threshold**:
+In k6 you write your goal down as a **threshold**, a pass or fail line:
 
 ```js
 export const options = {
@@ -100,50 +107,50 @@ export const options = {
 };
 ```
 
-If any threshold fails, k6 marks the run as failed and exits with code 99. So you can put a short k6 test in CI and fail the build when a change makes things slower, the same way a failing unit test does.
+If either line is crossed, k6 marks the test as failed and exits with code 99. So you can run it automatically on every code change and catch a slowdown before it ships, the same way a failing unit test stops a bug.
 
-Where does 300 ms come from? From what your users need, not from what your app happens to do today.
+How do you pick 300 ms? From what your users need, not from whatever your app happens to do today.
 
-### How Many Users Is "a Lot"?
+### How Many Users Should I Test With?
 
-Different questions need different shapes of load. The k6 docs group them into a handful of test types:
+Different questions need different kinds of tests. The k6 docs name six:
 
-![Six small charts of virtual users over time: smoke is flat and low, average load ramps up and holds, stress ramps higher and holds, spike jumps up and drops, soak holds a normal level for a long time, and breakpoint keeps rising.](/images/writing/will-it-break-in-prod/test-types.webp "Same script, six shapes of load.")
+![Six small charts of users over time. Smoke: one or two users. Average load: climb to normal traffic and stay there. Stress: climb above normal and stay there. Spike: jump to a lot of users at once, then drop. Soak: normal traffic for hours. Breakpoint: keep adding users until the app fails.](/images/writing/will-it-break-in-prod/test-types.webp "Same script, six kinds of traffic.")
 
-| Test | The question it answers | Shape |
+| Test | The question it answers | What the traffic looks like |
 | --- | --- | --- |
-| Smoke | Does the script even work? | 1–2 users, a minute or two |
-| Average load | Are we fine on a normal day? | Ramp up to normal traffic, hold it |
-| Stress | Are we fine on the busiest day? | Ramp above normal traffic, hold it |
-| Spike | What if everyone shows up at once? | Jump straight to a lot, then drop |
+| Smoke | Does my script even work? | 1–2 users for a minute or two |
+| Average load | Are we fine on a normal day? | Climb to normal traffic and stay there |
+| Stress | Are we fine on our busiest day? | Climb above normal traffic and stay there |
+| Spike | What if everyone shows up at once? | Jump straight to a lot of users, then drop |
 | Soak | Do we stay fine for hours? | Normal traffic, for a long time |
-| Breakpoint | Where exactly do we break? | Keep adding load until something fails |
+| Breakpoint | Where exactly do we break? | Keep adding users until something fails |
 
-To shape the load, use `stages`. Each stage moves the number of VUs to a target over a duration:
+You describe the shape with `stages`. Each stage says "get to this many users over this much time":
 
 ```js
 export const options = {
   stages: [
-    { duration: "2m", target: 50 }, // ramp up to 50 users
-    { duration: "5m", target: 50 }, // stay there
-    { duration: "2m", target: 0 },  // ramp down
+    { duration: "2m", target: 50 }, // climb to 50 users over 2 minutes
+    { duration: "5m", target: 50 }, // stay at 50 for 5 minutes
+    { duration: "2m", target: 0 },  // go back down to 0
   ],
 };
 ```
 
-What counts as normal traffic? If you have real numbers, use them: requests per second at your busiest hour, from your logs or monitoring. If you don't have traffic yet, estimate, and write down that it's an estimate so nobody mistakes it for a measurement later.
+Where do the numbers come from? If your app already has users, look at your busiest hour in your logs or monitoring. If it doesn't, make a sensible guess, and write down that it's a guess.
 
-### Wait, Real Users Don't Take Turns
+### Real Users Don't Wait Their Turn
 
-This is the part that's easy to miss.
+Here's a detail that's easy to miss.
 
-A VU sends its next request only after the previous one comes back. So when your server slows down, the VUs slow down with it, and fewer requests arrive. The test eases off right when your app is struggling.
+A virtual user sends a request, waits for the answer, and only then sends the next one. So when your app slows down, the virtual users slow down with it, and fewer requests come in. The test goes easy on your app right when it's struggling.
 
-Real users don't do that. They keep arriving whether your server is having a good day or not.
+Real people don't do that. New visitors keep arriving whether your app is fast or slow.
 
-![Two timelines. With virtual users, each new request waits for the previous response, so when responses get slow, fewer requests are sent. With a fixed arrival rate, new requests keep coming on schedule, so slow responses pile up and overlap.](/images/writing/will-it-break-in-prod/arrival-rate.webp "Virtual users wait for answers. Real traffic doesn't.")
+![Two timelines side by side in time. Top: k6 virtual users. Each new request waits for the previous answer, so when the app gets slow, only a few new requests are sent. Bottom: real visitors. New requests keep arriving on schedule, so when the app gets slow, they pile up on top of each other.](/images/writing/will-it-break-in-prod/arrival-rate.webp "When the app slows down, virtual users back off. Real visitors don't.")
 
-If your question is "can we handle 100 requests per second?", tell k6 exactly that with an **arrival-rate** executor. It starts new iterations at a fixed rate and brings in more VUs when it needs them:
+If your question is "can we handle 100 requests per second?", tell k6 exactly that. An **arrival-rate** test starts new requests on a fixed schedule, no matter how slow the answers are:
 
 ```js
 export const options = {
@@ -151,12 +158,12 @@ export const options = {
     orders: {
       executor: "ramping-arrival-rate",
       startRate: 10,
-      timeUnit: "1s", // rates below are per second
+      timeUnit: "1s", // the rates below are per second
       preAllocatedVUs: 50,
       maxVUs: 500,
       stages: [
-        { duration: "3m", target: 100 }, // up to 100 per second
-        { duration: "5m", target: 100 }, // hold
+        { duration: "3m", target: 100 }, // climb to 100 per second
+        { duration: "5m", target: 100 }, // stay there
         { duration: "3m", target: 300 }, // then push past it
       ],
     },
@@ -164,68 +171,68 @@ export const options = {
 };
 ```
 
-The rate counts iterations, so with one request per iteration it's requests per second. If k6 runs out of VUs and can't keep up, it counts the misses in a metric called `dropped_iterations`. If that number isn't zero, the load you asked for isn't the load you got.
+Each "per second" here counts runs of your test function. With one request per run, that's requests per second. If k6 runs out of virtual users and can't start a run on time, it counts it in `dropped_iterations`. If that number isn't zero, you didn't actually send the traffic you asked for.
 
-### How Do I Read the Results?
+### Reading the Results
 
-The summary k6 prints at the end has a lot of lines. Start with these:
+When the test ends, k6 prints a summary. It has a lot of lines. Start with these:
 
-| Metric | What it is | What to look for |
+| What k6 calls it | What it means | What to look for |
 | --- | --- | --- |
-| `http_req_duration` | How long each request took | p95 and p99, not the average |
-| `http_req_failed` | Share of requests that failed | Anything above zero, and when it started |
+| `http_req_duration` | How long requests took | The p95 and p99, not the average |
+| `http_req_failed` | How many requests failed | Anything above zero, and when it started |
 | `checks` | How many of your checks passed | Under 100% means wrong answers, not just slow ones |
-| `iterations` | How many times your test function ran | Did you send the load you planned? |
-| `dropped_iterations` | Iterations k6 couldn't start | Should be zero in arrival-rate tests |
+| `iterations` | How many times your script ran | Did you send as much traffic as you planned? |
+| `dropped_iterations` | Runs k6 couldn't start on time | Should be zero in arrival-rate tests |
 
-By default the summary shows p90 and p95 but not p99. Add `summaryTrendStats: ["avg", "med", "p(95)", "p(99)", "max"]` to `options` if you want it.
+By default the summary shows p90 and p95. To see p99 too, add `summaryTrendStats: ["avg", "med", "p(95)", "p(99)", "max"]` to your options.
 
-One summary also hides *when* things went wrong. To watch the test while it runs, turn on the web dashboard:
+The summary at the end doesn't show *when* things went wrong. To watch live graphs while the test runs:
 
 ```bash
 K6_WEB_DASHBOARD=true k6 run load.js
 ```
 
-Then open `http://localhost:5665`. To save the same charts as a file, add `K6_WEB_DASHBOARD_EXPORT=report.html`.
+Then open `http://localhost:5665` in your browser. Add `K6_WEB_DASHBOARD_EXPORT=report.html` to save the graphs as a file.
 
-What you're looking for is the **knee**: the point where response time stops being flat and starts climbing fast. Errors usually come right after it.
+What you're looking for is the **knee**: the point where response times stop being flat and shoot up. Errors usually start right after.
 
-![A line chart of p95 response time against load. The line stays flat as load increases, then bends sharply upward at the knee. Failed requests start appearing just after the knee. A marker just before the knee is labeled as the limit to write down.](/images/writing/will-it-break-in-prod/knee.webp "An illustration of the shape to look for, not real measurements.")
+![A chart of how long people wait as traffic grows. On the left the line is flat: the app keeps up. In the middle the line bends upward: requests start waiting in line. On the right it shoots up and failed requests appear. A dashed line just before the bend marks your limit.](/images/writing/will-it-break-in-prod/knee.webp "The shape to look for. An example, not real measurements.")
 
-The load right before the knee is your elevator plate. Write it down, with a margin.
+The traffic level just before the knee is your number. That's what goes on your elevator plate, with some room to spare.
 
-### k6 Says It's Slow. But Why?
+### k6 Shows That It's Slow, Not Why
 
-k6 tells you *that* something got slow. It can't see inside your app to tell you *why*. So while the test runs, watch the server side too:
+k6 only sees your app from the outside. To find the cause, watch your server while the test runs:
 
-- database connections in use, and how long requests wait to get one
+- how many database connections are in use, and how long requests wait for one
 - CPU and memory on the app server and the database
-- garbage collection pauses, if you're on the JVM
-- the slow query log
+- pauses to clean up memory (garbage collection), if your app runs on Java
+- your database's slow query log
 
-Usually one of these hits its ceiling right at the knee. That's your bottleneck. Fix it, run the same test again, and see whether the knee moves to the right.
+Usually one of these hits its limit right at the knee. That's your bottleneck. Fix it, run the same test again, and see if the knee moves to the right.
 
-### What Can Still Go Wrong?
+### Ways to Fool Yourself
 
-A load test is only as honest as its setup. A few ways to fool yourself:
+A load test is only as honest as its setup. Watch out for these:
 
-- **Your test database is tiny.** A query over a thousand rows is fast. The same query over ten million rows may not be. Test with production-sized data.
-- **Every request is the same.** Asking for `/orders/42` a thousand times mostly tests your cache. Load a list of real IDs with `SharedArray` and pick a different one each time.
-- **Your laptop is the bottleneck.** If the machine running k6 is at 100% CPU, you're measuring your laptop, not your server.
-- **localhost has no network.** Real users are far away. Test against a deployed staging environment when you can.
-- **Someone else's API is in the path.** Don't load test your payment provider by accident. Use their sandbox or a mock.
-- **Production is not your test lab.** If you really need to test production, plan it with the people who run it, and start small.
+- **A tiny test database.** A query over a thousand rows is fast. The same query over ten million rows might not be. Test with a realistic amount of data.
+- **The same request every time.** Asking for `/orders/42` a thousand times mostly tests your cache. Use a list of different IDs (k6's `SharedArray` helps with that).
+- **Your laptop is the bottleneck.** If the computer running k6 is at 100% CPU, you're measuring your laptop, not your app.
+- **localhost is too fast.** Real users are far away, on real networks. Test against a deployed staging server when you can.
+- **Someone else's service is in the way.** Don't load test your payment provider by accident. Use their sandbox or a fake version.
+- **Testing production.** If you really have to, plan it with the people who run it, and start small.
 
-### Conclusion
+### Where to Start
 
-You don't need a big setup to start. A twenty-line script, two thresholds, and an hour of watching graphs will tell you more about your app than another week of guessing.
+You don't need a big setup. A short script, two thresholds, and an hour of watching graphs will teach you more about your app than another week of guessing.
 
-| Situation | Run this first |
+| Your situation | Start with |
 | --- | --- |
-| Before the first launch | Smoke, then average load |
-| A big day is coming (launch, sale, demo) | Stress and spike |
-| The app gets slower after running for days | Soak |
-| You need a number for capacity planning | Breakpoint, with an arrival-rate executor |
-| On every pull request | A short smoke test with thresholds, in CI |
+| Before the first launch | A smoke test, then an average-load test |
+| A big day is coming (a launch, a sale, a demo) | Stress and spike tests |
+| The app gets slower after running for days | A soak test |
+| You need to know your limit | A breakpoint test with an arrival rate |
+| Every pull request | A short smoke test with thresholds, in CI |
 
-Find your elevator plate before your users find it for you. And if you have a friend who says "it works on my machine," send them this.
+Find your number before your users find it for you. And if you have a friend who says "it works on my machine," send them this.
