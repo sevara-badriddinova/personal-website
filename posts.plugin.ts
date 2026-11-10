@@ -3,7 +3,7 @@
 //   post.md?html  ->  export default "<p>...</p>"
 // Two separate modules, so pages that only list posts never download a post's HTML.
 // Markdown parsing and code highlighting happen here, so none of it ships to the browser.
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { basename, join } from "node:path";
 import { imageSize } from "image-size";
 import { Marked, Renderer, type Tokens } from "marked";
@@ -75,7 +75,14 @@ export default function posts(): Plugin {
         const loading = imagesSeen++ === 0 ? 'fetchpriority="high"' : 'loading="lazy"';
         const cover = imagesSeen === 1;
         let img = `<img src="${esc(href)}" alt="${esc(text)}" width="${width}" height="${height}" ${loading} decoding="async">`;
-        // Diagrams are dense on a phone: tapping one opens it full size.
+        // A phone-sized version next to the image (diagram.mobile.webp) is used on small screens,
+        // where the wide version's text would be too small to read.
+        const mobile = href.replace(/(\.[a-z]+)$/, ".mobile$1");
+        if (existsSync(join(publicDir, mobile))) {
+          const m = sizeOf(mobile);
+          img = `<picture><source media="(max-width: 560px)" srcset="${esc(mobile)}" width="${m.width}" height="${m.height}">${img}</picture>`;
+        }
+        // Tapping a diagram opens it full size.
         if (!cover) img = `<a class="post-figure__zoom" href="${esc(href)}" target="_blank" rel="noopener">${img}<span class="sr-only"> (opens full size)</span></a>`;
         return `<figure class="post-figure${cover ? " post-figure--cover" : ""}">${img}${title ? `<figcaption>${esc(title)}</figcaption>` : ""}</figure>`;
       },

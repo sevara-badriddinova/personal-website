@@ -42,7 +42,7 @@ export default function PostPage({ post, html }: PostPageProps) {
   useCopyButtons(articleRef);
 
   // Image paths in the post are site-absolute; file() keeps them working in relative builds.
-  const body = html.replace(/(src|href)="\/images\//g, `$1="${file("/images/")}`);
+  const body = html.replace(/(src|srcset|href)="\/images\//g, `$1="${file("/images/")}`);
 
   return (
     <>
