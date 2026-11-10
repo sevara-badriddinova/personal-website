@@ -17,7 +17,6 @@ export default function About() {
             {about.title}
           </h2>
           <p className="about__lead">{about.lead}</p>
-          <p className="about__more">{about.more}</p>
 
           <Prompt command="cat stack.txt" className="about__stack-prompt" />
           <dl className="stack">

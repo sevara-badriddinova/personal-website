@@ -253,8 +253,7 @@ export const allPostsHref: string | undefined = undefined;
 
 export const about = {
   title: "I like figuring out why something is slow.",
-  lead: "Or unreliable, or more complicated than it needs to be. I usually start by following the data, finding the bottleneck and fixing the part that actually matters.",
-  more: "Most of my work is backend: databases, payment platforms, distributed systems and developer tools, with a focus on performance and maintainability.",
+  lead: "I follow the data to the bottleneck and fix the part that matters.",
   photo: {
     src: "/images/boston.webp",
     file: "~/photos/boston.jpg",

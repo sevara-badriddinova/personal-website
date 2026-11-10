@@ -6,7 +6,6 @@ import Projects from "../components/Projects";
 import Writing from "../components/Writing";
 import About from "../components/About";
 import Contact from "../components/Contact";
-import Footer from "../components/Footer";
 import VariantSwitcher from "../terminal/VariantSwitcher";
 import { terminalVariant, type TerminalVariant } from "../data/content";
 
@@ -30,7 +29,6 @@ export default function Home() {
         <About />
         <Contact />
       </main>
-      <Footer />
       {SHOW_SWITCHER && <VariantSwitcher value={variant} onChange={setVariant} />}
     </>
   );
