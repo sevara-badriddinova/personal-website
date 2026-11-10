@@ -20,7 +20,9 @@ export function perform(effect?: Effect) {
     const url = id === "top" ? window.location.pathname + window.location.search : `#${id}`;
     window.history.replaceState(null, "", url);
   } else if (effect.type === "open") {
-    if (effect.href.startsWith("mailto:")) window.location.href = effect.href;
+    const external = /^https?:\/\//.test(effect.href);
+    // Pages of this site (a post) open in place; other sites in a new tab.
+    if (!external) window.location.assign(effect.href);
     else window.open(effect.href, "_blank", "noopener,noreferrer");
   }
 }

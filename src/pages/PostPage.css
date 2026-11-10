@@ -1,0 +1,447 @@
+/* A single post. Text sits in a ~68ch column; pictures, code and tables can run wider. */
+.article {
+  --measure: 700px;
+  --wide: 960px;
+  display: grid;
+  grid-template-columns:
+    [full-start] minmax(var(--gutter), 1fr)
+    [wide-start] minmax(0, calc((var(--wide) - var(--measure)) / 2))
+    [main-start] min(var(--measure), 100% - 2 * var(--gutter))
+    [main-end] minmax(0, calc((var(--wide) - var(--measure)) / 2))
+    [wide-end] minmax(var(--gutter), 1fr) [full-end];
+  padding-block: 72px 96px;
+}
+
+.article > *,
+.article__body > * {
+  grid-column: main;
+}
+
+/* Lets the post's own elements sit on the article grid. */
+.article__body {
+  display: contents;
+}
+
+/* ---------- head ---------- */
+
+.article__title {
+  margin-top: 18px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(40px, 6vw, 72px);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.article__meta {
+  margin-top: 22px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.article__tags {
+  color: var(--orange);
+}
+
+/* ---------- body text ---------- */
+
+.article__body p,
+.article__body li {
+  font-size: 18px;
+  line-height: 1.75;
+  color: var(--text-2);
+}
+
+.article__body p {
+  margin-top: 22px;
+}
+
+/* The opening claim. */
+.article__body > p:first-child {
+  margin-top: 40px;
+  font-size: 22px;
+  line-height: 1.55;
+  color: var(--text);
+}
+
+.article__body strong {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.article__body em {
+  font-style: italic;
+}
+
+.article__body a {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: var(--orange);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+}
+
+.article__body a:hover {
+  color: var(--orange);
+}
+
+.article__body h2,
+.article__body h3 {
+  margin-top: 72px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(26px, 3vw, 32px);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  scroll-margin-top: 96px;
+}
+
+.post-anchor {
+  margin-left: 12px;
+  font-family: var(--font-mono);
+  font-size: 0.7em;
+  font-weight: 400;
+  color: var(--orange) !important;
+  text-decoration: none !important;
+  opacity: 0;
+}
+
+.article__body :is(h2, h3):hover .post-anchor,
+.post-anchor:focus-visible {
+  opacity: 1;
+}
+
+.article__body ul,
+.article__body ol {
+  margin-top: 18px;
+  padding-left: 22px;
+}
+
+.article__body ul {
+  list-style: disc;
+}
+
+.article__body ol {
+  list-style: decimal;
+}
+
+.article__body li + li {
+  margin-top: 10px;
+}
+
+.article__body li::marker {
+  color: var(--orange);
+}
+
+.article__body :not(pre) > code {
+  padding: 2px 6px;
+  border: 1px solid var(--line-2);
+  border-radius: 4px;
+  background: var(--panel);
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+/* "Me: / Production:" exchanges. */
+.article__body blockquote {
+  margin: 26px 0 0;
+  padding: 4px 0 4px 22px;
+  border-left: 3px solid var(--orange);
+}
+
+.article__body blockquote p {
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.article__body blockquote p:first-child {
+  margin-top: 0;
+}
+
+/* A visible reminder that a section still needs the author's input. */
+.article__body blockquote.post-draft {
+  padding: 16px 20px;
+  border: 1.5px dashed #f5c542;
+  background: rgba(245, 197, 66, 0.07);
+}
+
+.article__body blockquote.post-draft p,
+.article__body blockquote.post-draft strong {
+  color: #f5d77a;
+}
+
+/* ---------- figures ---------- */
+
+.article__body > .post-figure {
+  grid-column: wide;
+  margin-top: 40px;
+}
+
+.post-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid var(--line-2);
+  background: #fff;
+}
+
+.post-figure__zoom {
+  display: block;
+  cursor: zoom-in;
+}
+
+.post-figure__zoom:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 4px;
+}
+
+.post-figure figcaption {
+  margin-top: 12px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* ---------- code ---------- */
+
+.article__body > .post-code {
+  margin-top: 26px;
+  border: 1px solid var(--line-2);
+  border-radius: 10px;
+  background: var(--bg-deep);
+  overflow: hidden;
+}
+
+.post-code__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 8px 0 18px;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.post-code__copy {
+  min-height: 40px;
+  padding: 0 12px;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  cursor: pointer;
+}
+
+.post-code__copy:hover {
+  color: var(--orange);
+}
+
+.post-code pre {
+  margin: 0;
+  padding: 18px 20px 20px;
+  overflow-x: auto;
+  background: transparent !important;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.7;
+  tab-size: 2;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-3) transparent;
+}
+
+.post-code pre:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: -2px;
+}
+
+.post-code .shiki span {
+  color: var(--shiki-dark);
+}
+
+/* ---------- tables ---------- */
+
+.article__body > .post-table {
+  margin-top: 28px;
+}
+
+.post-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.post-table th,
+.post-table td {
+  padding: 12px 16px 12px 0;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--text-2);
+}
+
+.post-table th {
+  border-bottom-color: var(--line-3);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.post-table td:first-child {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.post-table td code {
+  white-space: nowrap;
+}
+
+/* ---------- end ---------- */
+
+.article__end {
+  margin-top: 80px;
+  padding-top: 28px;
+  border-top: 1px solid var(--line-3);
+}
+
+.article__thanks {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.article__mail {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: var(--orange);
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}
+
+.article__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 28px;
+  margin-top: 12px;
+}
+
+@media (max-width: 560px) {
+  .article {
+    padding-block: 40px 64px;
+  }
+
+  .article__title {
+    font-size: min(40px, 10.6vw);
+  }
+
+  .article__meta {
+    font-size: 12.5px;
+    line-height: 1.7;
+  }
+
+  .article__body p,
+  .article__body li {
+    font-size: 17px;
+    line-height: 1.7;
+  }
+
+  .article__body > p:first-child {
+    margin-top: 28px;
+    font-size: 19px;
+  }
+
+  .article__body h2,
+  .article__body h3 {
+    margin-top: 56px;
+  }
+
+  /* Pictures and code use the full screen width on phones. */
+  .article__body > :is(.post-figure, .post-code) {
+    grid-column: full;
+  }
+
+  .article__body > .post-code {
+    border-inline: 0;
+    border-radius: 0;
+  }
+
+  .post-code pre {
+    padding-inline: var(--gutter);
+    font-size: 13px;
+  }
+
+  .post-code__bar {
+    padding-left: var(--gutter);
+  }
+
+  /* Tables stack into one small card per row, each value under its column name. */
+  .post-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .post-table table,
+  .post-table tbody,
+  .post-table tr,
+  .post-table td {
+    display: block;
+  }
+
+  .post-table tr {
+    padding: 14px 0 16px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .post-table tr:first-child {
+    border-top: 1px solid var(--line-3);
+  }
+
+  .post-table td {
+    padding: 0;
+    border: 0;
+    font-size: 16px;
+  }
+
+  .post-table td:first-child {
+    font-size: 17px;
+  }
+
+  .post-table td + td {
+    margin-top: 8px;
+  }
+
+  .post-table td + td::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 2px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--muted);
+  }
+
+  .post-figure img {
+    border-radius: 0;
+    border-inline: 0;
+  }
+
+  .post-figure figcaption {
+    padding-inline: var(--gutter);
+  }
+}

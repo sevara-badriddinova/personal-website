@@ -1,5 +1,6 @@
 import { contact, projectAnchor, projects, type Project } from "../data/content";
 import Prompt from "./Prompt";
+import { file } from "../lib/url";
 import "./Projects.css";
 
 const IMAGE_SIZE = { width: 1400, height: 788 };
@@ -12,9 +13,9 @@ function Shot({ project }: { project: Project }) {
         <span>{project.image.file}</span>
         <span aria-hidden="true">full size ↗</span>
       </figcaption>
-      <a className="shot__zoom" href={project.image.src} target="_blank" rel="noopener">
+      <a className="shot__zoom" href={file(project.image.src)} target="_blank" rel="noopener">
         <img
-          src={project.image.src}
+          src={file(project.image.src)}
           alt={`${project.image.alt} (opens full size)`}
           width={IMAGE_SIZE.width}
           height={IMAGE_SIZE.height}

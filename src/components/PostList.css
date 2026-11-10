@@ -1,12 +1,14 @@
 .posts {
   margin-top: 44px;
+  padding: 0;
+  list-style: none;
   border-top: 1px solid var(--line-3);
 }
 
 .post {
   display: grid;
-  grid-template-columns: 120px 150px minmax(0, 1fr) 110px;
-  gap: 10px 28px;
+  grid-template-columns: 220px minmax(0, 1fr) 90px;
+  gap: 10px 32px;
   align-items: baseline;
   padding: 30px 0;
   border-bottom: 1px solid var(--line);
@@ -14,42 +16,50 @@
   text-decoration: none;
 }
 
-a.post:hover {
+.post:hover {
   color: var(--text);
 }
 
-a.post:hover .post__title {
+.post:hover .post__title {
   color: var(--orange);
 }
 
-.post__date,
-.post__tag,
+.post__meta,
 .post__time {
   font-family: var(--font-mono);
   font-size: 13px;
   color: var(--muted);
 }
 
-.post__tag {
+.post__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.post__tags {
   color: var(--orange);
 }
 
 .post__time {
   text-align: right;
+  white-space: nowrap;
 }
 
 .post__title {
   display: block;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 26px;
+  font-size: 28px;
   line-height: 1.2;
   letter-spacing: -0.02em;
+  text-wrap: balance;
 }
 
 .post__excerpt {
   display: block;
   margin-top: 10px;
+  max-width: 62ch;
   font-size: 16px;
   line-height: 1.6;
   color: var(--muted);
@@ -68,40 +78,38 @@ a.post:hover .post__title {
     padding: 22px 0;
   }
 
-  .post__date,
-  .post__tag,
-  .post__time {
-    font-size: 12px;
-    text-align: left;
-  }
-
-  .post__date {
+  .post__meta {
+    flex-direction: row;
+    gap: 0;
     order: 1;
+    font-size: 12px;
   }
 
-  .post__tag {
-    order: 2;
-  }
-
-  .post__time {
-    order: 3;
-  }
-
-  .post__tag::before,
+  .post__tags::before,
   .post__time::before {
     content: "\00a0·\00a0";
     content: "\00a0·\00a0" / "";
     color: var(--muted);
   }
 
+  .post__time {
+    order: 2;
+    font-size: 12px;
+    text-align: left;
+  }
+
+  .post__time [aria-hidden] {
+    display: none;
+  }
+
   .post__main {
-    order: 4;
+    order: 3;
     width: 100%;
     margin-top: 10px;
   }
 
   .post__title {
-    font-size: 22px;
+    font-size: 23px;
   }
 
   .post__excerpt {

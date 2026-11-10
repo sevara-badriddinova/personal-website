@@ -1,6 +1,8 @@
 // The command engine every terminal version shares. Pure functions: parse a line,
 // return what to print and (optionally) where to go. Side effects live in perform().
-import { about, contact, experience, posts, projectAnchor, projects, recentLog, site } from "../data/content";
+import { about, contact, experience, projectAnchor, projects, recentLog, site } from "../data/content";
+import { posts } from "../data/posts";
+import { file, page } from "../lib/url";
 
 export type Tone = "muted" | "accent" | "error" | "strong";
 /** One run of text. `href` renders a link; `run` renders a button that runs that command. */
@@ -27,10 +29,16 @@ const gap = t("  ");
 
 export const SECTIONS = ["experience", "projects", ...(posts.length > 0 ? ["writing"] : []), "about", "contact"];
 const SLUGS = projects.map((p) => p.slug);
+const POST_SLUGS = posts.map((p) => p.slug);
 const FILES = ["recent.log", "about.md", "contact.txt", "resume.pdf"];
 
 const OPENABLE: Record<string, { label: string; href: string }> = {
-  resume: { label: "resume.pdf", href: site.resume },
+  resume: {
+    label: "resume.pdf",
+    get href() {
+      return file(site.resume);
+    },
+  },
   github: { label: "github.com/sevara-badriddinova", href: contact.github },
   linkedin: { label: "linkedin.com/in/sevarabadriddinova", href: contact.linkedin },
   email: { label: contact.email, href: `mailto:${contact.email}` },
@@ -76,6 +84,8 @@ function openHref(raw = ""): string | undefined {
   const arg = clean(raw);
   const project = projectFrom(arg);
   if (project) return project.links[0].href;
+  const post = posts.find((p) => p.slug === arg.replace(/^writing\//, "").replace(/\.md$/, ""));
+  if (post) return page(post.href);
   return OPENABLE[OPEN_ALIASES[arg] ?? arg]?.href;
 }
 
@@ -102,7 +112,8 @@ function openTarget(raw: string): Result {
   const href = openHref(arg);
   if (href) {
     const item = Object.values(OPENABLE).find((o) => o.href === href);
-    const label = item?.label ?? href.replace(/^https?:\/\//, "");
+    const post = posts.find((p) => page(p.href) === href);
+    const label = item?.label ?? (post ? `writing/${post.slug}` : href.replace(/^https?:\/\//, ""));
     return {
       lines: [line(t("opening ", "muted"), link(label, href))],
       effect: { type: "open", href },
@@ -157,7 +168,10 @@ const COMMANDS: Command[] = [
       }
       if (arg === "writing" && posts.length > 0) {
         return {
-          lines: posts.map((p): Line => ({ cols: 2, segs: [t(p.date ?? "soon", "muted"), cmd("cd writing", p.title)] })),
+          lines: [
+            ...posts.map((p): Line => ({ cols: 2, segs: [t(p.date, "muted"), cmd(`open ${p.slug}`, p.title)] })),
+            line(t("Click one to read it.", "muted")),
+          ],
         };
       }
       return error(`ls: ${raw}: no such directory`, [t("Try ", "muted"), cmd("ls")]);
@@ -178,8 +192,8 @@ const COMMANDS: Command[] = [
   {
     name: "open",
     example: "open jobradar",
-    summary: "open a project, resume, github or linkedin",
-    args: () => [...SLUGS, "resume", "github", "linkedin"],
+    summary: "open a project, post, resume, github or linkedin",
+    args: () => [...SLUGS, ...POST_SLUGS, "resume", "github", "linkedin"],
     run: ([raw = ""]) => openTarget(raw),
   },
   {

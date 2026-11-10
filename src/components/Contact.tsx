@@ -1,6 +1,7 @@
 import { contact, site } from "../data/content";
 import CopyButton from "./CopyButton";
 import Prompt from "./Prompt";
+import { file } from "../lib/url";
 import "./Contact.css";
 
 export default function Contact() {
@@ -21,7 +22,7 @@ export default function Contact() {
           <CopyButton text={contact.email} label="Copy email address" />
         </div>
         <div className="contact__actions">
-          <a className="btn btn--primary" href={site.resume} target="_blank" rel="noopener">
+          <a className="btn btn--primary" href={file(site.resume)} target="_blank" rel="noopener">
             View resume
           </a>
           <a className="btn btn--ghost" href={contact.linkedin} target="_blank" rel="noopener noreferrer">

@@ -2,7 +2,7 @@ import type { Line, Seg } from "./commands";
 
 type RunFn = (command: string) => void;
 
-const isExternal = (href: string) => !href.startsWith("mailto:") && !href.startsWith("#");
+const isExternal = (href: string) => /^https?:\/\//.test(href);
 
 function Segment({ seg, onRun }: { seg: Seg; onRun: RunFn }) {
   const cls = seg.tone ? `term-seg term-seg--${seg.tone}` : "term-seg";

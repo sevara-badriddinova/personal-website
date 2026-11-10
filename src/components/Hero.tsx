@@ -1,6 +1,7 @@
 import { contact, site } from "../data/content";
 import Prompt from "./Prompt";
 import TerminalShell from "../terminal/TerminalShell";
+import { file } from "../lib/url";
 import "./Hero.css";
 
 export default function Hero() {
@@ -15,7 +16,7 @@ export default function Hero() {
           </h1>
           <p className="hero__role">{site.role}</p>
           <div className="hero__actions">
-            <a className="btn btn--primary" href={site.resume} target="_blank" rel="noopener">
+            <a className="btn btn--primary" href={file(site.resume)} target="_blank" rel="noopener">
               View resume
             </a>
             <a className="btn btn--ghost" href={`mailto:${contact.email}`}>

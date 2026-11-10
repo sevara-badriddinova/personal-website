@@ -1,5 +1,6 @@
 import { about, stack } from "../data/content";
 import Prompt from "./Prompt";
+import { file } from "../lib/url";
 import "./About.css";
 
 export default function About() {
@@ -8,7 +9,7 @@ export default function About() {
       <div className="wrap about">
         <figure className="panel about__photo">
           <figcaption className="panel__bar">{about.photo.file}</figcaption>
-          <img src={about.photo.src} alt={about.photo.alt} width={720} height={900} loading="lazy" decoding="async" />
+          <img src={file(about.photo.src)} alt={about.photo.alt} width={720} height={900} loading="lazy" decoding="async" />
         </figure>
 
         <div className="about__body">

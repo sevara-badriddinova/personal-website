@@ -209,39 +209,7 @@ export const projects: Project[] = [
   },
 ];
 
-// Posts without `href` show as "soon". Remove every entry to hide the section and its nav link.
-export type Post = {
-  title: string;
-  excerpt: string;
-  tag: string;
-  date?: string;
-  readTime?: string;
-  href?: string;
-};
-
-export const posts: Post[] = [
-  {
-    title: "From 106 seconds to 3.3: one query instead of one per merchant",
-    excerpt:
-      "The risk-scoring job ran a SQL query per merchant. Rewriting it as a single set-based aggregation removed the repeated scans.",
-    tag: "performance",
-  },
-  {
-    title: "Filter before the model: cutting LLM calls by 97.8%",
-    excerpt:
-      "In JobRadar, deterministic eligibility rules run first, so Claude only sees postings that could actually be a match.",
-    tag: "ai-systems",
-  },
-  {
-    title: "Getting every response back to its caller over one WebSocket",
-    excerpt:
-      "How Eltunnel uses request IDs, goroutines and channels to route concurrent requests through a single tunnel.",
-    tag: "concurrency",
-  },
-];
-
-// Set this once there is a page listing every post.
-export const allPostsHref: string | undefined = undefined;
+// Posts live in src/posts/*.md (see src/data/posts.ts).
 
 export const about = {
   title: "I like figuring out why something is slow.",
