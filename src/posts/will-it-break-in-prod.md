@@ -3,13 +3,13 @@ title: Will It Break in Prod?
 description: Your app works when you test it alone. Here's how to find out what happens when hundreds of people use it at once, with a free tool called k6.
 date: 2026-11-10
 tags: performance, testing, k6
-cover: /images/writing/will-it-break-in-prod/cover.webp
-coverAlt: A metal capacity plate, like the one inside an elevator, that reads "This API. Max ___ requests per second." A sticky note next to the blank says "find this number".
+cover: /images/writing/will-it-break-in-prod/cover-crowd.webp
+coverAlt: Two panels. On the left, your test: one person, and your app answers in 12 ms. On the right, Monday at 9 AM: a crowd of 400 people, and your app gets slow, then throws errors.
 ---
 
 **Your app works when you test it. But when you test it, you're one person. Real users show up hundreds at a time.**
 
-![A metal capacity plate, like the one inside an elevator, that reads "This API. Max ___ requests per second." A sticky note next to the blank says "find this number".](/images/writing/will-it-break-in-prod/cover.webp)
+![Two panels. On the left, your test: one person, and your app answers in 12 ms. On the right, Monday at 9 AM: a crowd of 400 people, and your app gets slow, then throws errors.](/images/writing/will-it-break-in-prod/cover-crowd.webp)
 
 Every elevator has a small metal plate inside that says something like *max 13 people*. Nobody guessed that number. Someone loaded the elevator until they found its limit, then wrote it down with some room to spare.
 
@@ -148,7 +148,7 @@ A virtual user sends a request, waits for the answer, and only then sends the ne
 
 Real people don't do that. New visitors keep arriving whether your app is fast or slow.
 
-![Two timelines side by side in time. Top: k6 virtual users. Each new request waits for the previous answer, so when the app gets slow, only a few new requests are sent. Bottom: real visitors. New requests keep arriving on schedule, so when the app gets slow, they pile up on top of each other.](/images/writing/will-it-break-in-prod/arrival-rate.webp "When the app slows down, virtual users back off. Real visitors don't.")
+![Two rows of steps while the app is slow. A k6 virtual user sends a request, waits 3 seconds for the slow answer, and only then sends the next one, so fewer requests go out. Real visitors: visitor 1 sends a request, the app is still working on it, and visitors 2, 3 and 4 arrive anyway, so requests pile up.](/images/writing/will-it-break-in-prod/waits-vs-arrives.webp "A virtual user waits its turn. Real visitors don't.")
 
 If your question is "can we handle 100 requests per second?", tell k6 exactly that. An **arrival-rate** test starts new requests on a fixed schedule, no matter how slow the answers are:
 
@@ -197,9 +197,9 @@ Then open `http://localhost:5665` in your browser. Add `K6_WEB_DASHBOARD_EXPORT=
 
 What you're looking for is the **knee**: the point where response times stop being flat and shoot up. Errors usually start right after.
 
-![A chart of how long people wait as traffic grows. On the left the line is flat: the app keeps up. In the middle the line bends upward: requests start waiting in line. On the right it shoots up and failed requests appear. A dashed line just before the bend marks your limit.](/images/writing/will-it-break-in-prod/knee.webp "The shape to look for. An example, not real measurements.")
+![A bar chart of example results, adding 50 users at a time. From 50 to 200 users, p95 stays under the 300 ms goal, between 120 and 240 ms, and nothing fails. At 250 users p95 jumps to 900 ms and 2% of requests fail. At 300 users it takes 2.8 seconds and 18% fail. Your limit is about 200 users.](/images/writing/will-it-break-in-prod/knee-steps.webp "Example numbers, not a real test.")
 
-The traffic level just before the knee is your number. That's what goes on your elevator plate, with some room to spare.
+In this example, everything is fine up to 200 users. At 250, response times jump and requests start failing. So the number for your elevator plate is about 200 users, with some room to spare.
 
 ### k6 Shows That It's Slow, Not Why
 
