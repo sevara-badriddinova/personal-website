@@ -31,27 +31,6 @@
   gap: 10px;
 }
 
-/* Version D puts a prompt between the home link and the nav. */
-.header__inner--prompt {
-  justify-content: flex-start;
-}
-
-.header__inner--prompt .header__right {
-  margin-left: auto;
-}
-
-@media (max-width: 1080px) {
-  .header__inner--prompt .header__link {
-    padding: 0 8px;
-  }
-}
-
-@media (max-width: 960px) {
-  .header__inner--prompt .header__nav {
-    display: none;
-  }
-}
-
 .header__nav {
   display: flex;
   flex-wrap: wrap;

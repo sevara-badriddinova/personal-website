@@ -1,6 +1,5 @@
-import { posts, site, type TerminalVariant } from "../data/content";
+import { posts, site } from "../data/content";
 import { useActiveSection } from "../hooks/useActiveSection";
-import HeaderPrompt from "../terminal/HeaderPrompt";
 import "./Header.css";
 
 const NAV = [
@@ -12,17 +11,15 @@ const NAV = [
 ];
 const NAV_IDS = NAV.map((n) => n.href.slice(1));
 
-export default function Header({ variant }: { variant: TerminalVariant }) {
-  const withPrompt = variant === "header";
+export default function Header() {
   const active = useActiveSection(NAV_IDS);
 
   return (
     <header className="header">
-      <div className={withPrompt ? "wrap header__inner header__inner--prompt" : "wrap header__inner"}>
+      <div className="wrap header__inner">
         <a className="header__home" href="#top" aria-label={`${site.name}, back to top`}>
           ~/sevara
         </a>
-        {withPrompt && <HeaderPrompt />}
         <div className="header__right">
           <nav className="header__nav" aria-label="Primary">
             {NAV.map((item) => (

@@ -25,7 +25,7 @@ npm run preview
   - Projects with `featured: true` get the large alternating rows; the rest go in the grid.
   - Posts without an `href` show as "soon". Remove every post to hide the Writing section and its nav link. Set `allPostsHref` once there is a page that lists them.
 - `src/components/`: one component and stylesheet per section.
-- `src/terminal/`: the hero terminal (command engine in `commands.ts`, four versions; pick one with `terminalVariant` in `content.ts`).
+- `src/terminal/`: the hero terminal. `commands.ts` holds every command (help, ls, cd, open, cat, whoami, mail, clear); `TerminalShell.tsx` is the UI. Tab completes, ↑ recalls, and `/` or ⌘K focuses it.
 - `src/pages/Home.tsx`: section order.
 - `src/index.css`: design tokens, shared pieces (buttons, prompt lines, panels), and font imports.
 - `public/images/projects/`: project diagrams as 1400×788 WebP.

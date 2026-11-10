@@ -88,11 +88,8 @@
   }
 
   .about__lead {
-    font-size: 16px;
-  }
-
-  .about__lead {
     margin-top: 18px;
+    font-size: 16px;
   }
 
   .about__stack-prompt {

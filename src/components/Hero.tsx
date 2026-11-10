@@ -1,12 +1,9 @@
-import { contact, site, type TerminalVariant } from "../data/content";
+import { contact, site } from "../data/content";
 import Prompt from "./Prompt";
-import StaticLog from "../terminal/StaticLog";
-import TerminalLs from "../terminal/TerminalLs";
-import TerminalPalette from "../terminal/TerminalPalette";
 import TerminalShell from "../terminal/TerminalShell";
 import "./Hero.css";
 
-export default function Hero({ variant }: { variant: TerminalVariant }) {
+export default function Hero() {
   return (
     <section id="top" className="hero" aria-label="Introduction">
       <div className="wrap hero__inner">
@@ -35,10 +32,7 @@ export default function Hero({ variant }: { variant: TerminalVariant }) {
           </div>
         </div>
 
-        {variant === "shell" && <TerminalShell />}
-        {variant === "palette" && <TerminalPalette />}
-        {variant === "ls" && <TerminalLs />}
-        {variant === "header" && <StaticLog />}
+        <TerminalShell />
       </div>
     </section>
   );

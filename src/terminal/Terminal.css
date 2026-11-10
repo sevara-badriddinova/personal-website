@@ -1,6 +1,4 @@
-/* ---------------------------------------------------------
-   Shared terminal pieces (all versions)
---------------------------------------------------------- */
+/* The interactive terminal in the hero. */
 .term {
   flex: 1 1 440px;
   min-width: 0;
@@ -69,7 +67,7 @@
   color: #ff8a80;
 }
 
-/* A command you can click. Looks like text in the terminal, acts like a button. */
+/* A command you can click. Looks like text in the terminal, acts like a link or button. */
 .term-seg--cmd {
   justify-self: start;
   padding: 0;
@@ -137,20 +135,7 @@
   color: #8b8f98;
 }
 
-kbd {
-  display: inline-block;
-  min-width: 1.6em;
-  padding: 0 5px;
-  border: 1px solid var(--line-3);
-  border-bottom-width: 2px;
-  font-family: var(--font-mono);
-  font-size: 0.92em;
-  line-height: 1.5;
-  text-align: center;
-  color: var(--text);
-}
-
-/* ---------- A: shell ---------- */
+/* one-click suggestions under the prompt */
 .term__chips {
   display: flex;
   flex-wrap: wrap;
@@ -172,274 +157,6 @@ kbd {
 .term__chip:hover {
   border-color: var(--orange);
   color: var(--orange);
-}
-
-/* ---------- B: palette ---------- */
-.palette__field {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 6px 18px;
-  border-bottom: 1px solid var(--line-2);
-}
-
-.palette__field:focus-within {
-  outline: 2px solid var(--orange);
-  outline-offset: -2px;
-}
-
-.palette__list {
-  max-height: 318px;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  padding: 6px;
-  scrollbar-width: thin;
-  scrollbar-color: var(--line-3) transparent;
-}
-
-.palette__item {
-  display: grid;
-  grid-template-columns: 142px minmax(0, 1fr) auto;
-  gap: 4px 14px;
-  align-items: baseline;
-  padding: 10px 12px;
-  font-size: 13.5px;
-  cursor: pointer;
-}
-
-.palette__item[aria-selected="true"] {
-  background: #23252a;
-  box-shadow: inset 2px 0 0 var(--orange);
-}
-
-.palette__cmd {
-  font-weight: 700;
-}
-
-.palette__label {
-  color: var(--muted);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.palette__hint {
-  color: var(--orange);
-  white-space: nowrap;
-}
-
-.palette__empty {
-  padding: 12px;
-  font-size: 13.5px;
-  color: var(--muted);
-}
-
-.palette__out {
-  padding: 12px 18px 14px;
-  border-top: 1px solid var(--line-2);
-  font-size: 13.5px;
-  line-height: 1.5;
-}
-
-.palette__keys {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px 18px;
-  padding: 10px 18px;
-  border-top: 1px solid var(--line-2);
-  font-size: 11.5px;
-  color: var(--muted);
-}
-
-.palette__keys kbd + kbd {
-  margin-left: 3px;
-}
-
-/* ---------- C: ls -la ---------- */
-.term--ls .term__screen {
-  max-height: 440px;
-}
-
-.ls {
-  margin-top: 8px;
-}
-
-.ls__row {
-  display: grid;
-  grid-template-columns: 96px 118px minmax(0, 1fr);
-  gap: 2px 14px;
-  align-items: baseline;
-  padding: 3px 0;
-}
-
-.ls__perms {
-  color: #8b8f98;
-}
-
-.ls__name {
-  justify-self: start;
-  padding: 0;
-  border: 0;
-  background: none;
-  color: var(--text);
-  font: inherit;
-  font-weight: 700;
-  text-align: left;
-  text-decoration: underline;
-  text-decoration-style: dotted;
-  text-decoration-color: var(--orange);
-  text-underline-offset: 4px;
-  cursor: pointer;
-}
-
-.ls__name--dir {
-  color: var(--orange);
-}
-
-.ls__name:hover {
-  color: var(--orange);
-  text-decoration-style: solid;
-}
-
-.ls__info {
-  color: var(--muted);
-  overflow-wrap: anywhere;
-}
-
-.ls__cat {
-  grid-column: 1 / -1;
-  margin: 2px 0 8px;
-  padding-left: 12px;
-  border-left: 1px solid var(--line-3);
-}
-
-.ls__cat .term-line--cols3 {
-  margin-top: 6px;
-}
-
-/* ---------- D: header prompt ---------- */
-.hprompt {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex: 0 1 340px;
-  min-width: 0;
-}
-
-.hprompt .term-prompt {
-  flex: 1;
-  min-width: 0;
-  margin: 0;
-  padding: 0 10px;
-  border: 1px solid var(--line-3);
-  background: var(--panel);
-}
-
-.hprompt .term-prompt__input {
-  min-height: 38px;
-}
-
-.hprompt__kbd {
-  flex: none;
-  color: var(--muted);
-}
-
-.hprompt__pop {
-  position: absolute;
-  top: calc(100% + 14px);
-  left: 0;
-  z-index: 20;
-  width: min(560px, calc(100vw - 2 * var(--gutter)));
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.5);
-}
-
-.hprompt__pop .term__screen {
-  max-height: min(420px, 60vh);
-  padding-bottom: 16px;
-}
-
-.hprompt__close {
-  min-height: 24px;
-  padding: 0 6px;
-  border: 1px solid var(--line-3);
-  background: none;
-  color: var(--muted);
-  font: inherit;
-  cursor: pointer;
-}
-
-.hprompt__close:hover {
-  color: var(--text);
-}
-
-.log__hint {
-  line-height: 1.6;
-}
-
-/* Bigger rows for fingers. */
-@media (pointer: coarse) {
-  .ls__row {
-    padding: 7px 0;
-  }
-}
-
-/* ---------- preview-only version switcher ---------- */
-.switcher {
-  position: fixed;
-  bottom: calc(16px + env(safe-area-inset-bottom));
-  left: 50%;
-  z-index: 50;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  max-width: calc(100vw - 24px);
-  padding: 6px;
-  overflow-x: auto;
-  transform: translateX(-50%);
-  border: 1px solid var(--line-3);
-  background: #1c1d21;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
-  font-family: var(--font-mono);
-  font-size: 12.5px;
-}
-
-.switcher__label {
-  flex: none;
-  padding: 0 8px;
-  color: var(--muted);
-}
-
-.switcher__btn {
-  flex: none;
-  min-height: 36px;
-  padding: 0 12px;
-  border: 1px solid transparent;
-  background: none;
-  color: var(--text);
-  font: inherit;
-  cursor: pointer;
-  white-space: nowrap;
-}
-
-.switcher__btn:hover {
-  border-color: var(--line-3);
-}
-
-.switcher__btn[aria-pressed="true"] {
-  background: var(--text);
-  color: var(--ink);
-}
-
-/* ---------- phones ---------- */
-@media (max-width: 760px) {
-  .hprompt {
-    flex: 1 1 auto;
-  }
-
-  .hprompt__kbd {
-    display: none;
-  }
 }
 
 @media (max-width: 560px) {
@@ -475,50 +192,18 @@ kbd {
   .term__chip {
     min-height: 40px;
   }
+}
 
-  .palette__field {
-    padding: 4px 14px;
+/* Finger-sized suggestions on any touch screen, tablets included. */
+@media (pointer: coarse) {
+  .term__chip {
+    min-height: 44px;
   }
+}
 
-  .palette__item {
-    grid-template-columns: minmax(0, 1fr) auto;
-    font-size: 12.5px;
-  }
-
-  .palette__label {
-    grid-column: 1 / -1;
-    grid-row: 2;
-  }
-
-  .palette__keys {
-    display: none;
-  }
-
-  .ls__row {
-    grid-template-columns: 104px minmax(0, 1fr);
-  }
-
-  .ls__perms {
-    display: none;
-  }
-
-  /* On phones the prompt replaces the ~/sevara link (cd ~ goes home). */
-  .header__inner--prompt .header__home {
-    display: none;
-  }
-
-  .hprompt__pop {
-    position: fixed;
-    top: 72px;
-    left: 12px;
-    right: 12px;
-    width: auto;
-  }
-
-  .switcher {
-    bottom: calc(10px + env(safe-area-inset-bottom));
-    left: 12px;
-    right: 12px;
-    transform: none;
+@media (max-width: 360px) {
+  .term-line--cols3 {
+    grid-template-columns: 74px minmax(0, 1fr) auto;
+    gap: 2px 8px;
   }
 }

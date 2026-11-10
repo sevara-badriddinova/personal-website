@@ -6,14 +6,6 @@ export const site = {
   resume: "/Sevara_Badriddinova_Resume.pdf",
 };
 
-// Which terminal the hero uses:
-// "shell"   interactive prompt with suggestions
-// "palette" filterable command list (⌘K style)
-// "ls"      clickable `ls -la` listing plus a prompt
-// "header"  a prompt in the sticky header that works from anywhere
-export type TerminalVariant = "shell" | "palette" | "ls" | "header";
-export const terminalVariant: TerminalVariant = "shell";
-
 export const projectAnchor = (slug: string) => `project-${slug}`;
 
 export const contact = {
