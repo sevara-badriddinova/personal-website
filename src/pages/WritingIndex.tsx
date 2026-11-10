@@ -16,7 +16,7 @@ export default function WritingIndex() {
           <div className="wrap section__inner">
             <Prompt command="ls -lt writing/" />
             <h1 id="writing-title" className="section__title">
-              Notes from the work
+              Blog posts
             </h1>
             <p className="writing-index__lead">
               What I learn building backend systems: performance, testing, and the things that only break in production.

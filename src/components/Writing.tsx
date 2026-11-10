@@ -13,7 +13,7 @@ export default function Writing() {
           <div>
             <Prompt command="ls -lt writing/" />
             <h2 id="writing-title" className="section__title">
-              Notes from the work
+              Blog posts
             </h2>
           </div>
           <a className="text-link text-link--mono" href={page("/writing")}>
