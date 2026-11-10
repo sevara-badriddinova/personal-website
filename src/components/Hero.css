@@ -1,336 +1,184 @@
-.hero {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  padding: clamp(54px, 8vh, 92px) var(--gutter) clamp(24px, 4vw, 48px);
-  text-align: center;
-}
-
-.hero__eyebrow {
-  position: relative;
-  display: inline-block;
-  margin-bottom: 18px;
-  font-family: "Comic Sans MS", "Bradley Hand", "Marker Felt", cursive;
-  font-size: clamp(1.15rem, 2vw, 1.65rem);
-}
-
-.hero__eyebrow::after {
-  content: "";
-  position: absolute;
-  left: 14%;
-  right: 14%;
-  bottom: -8px;
-  height: 9px;
-  border-top: 2px solid var(--ink);
-  border-bottom: 2px solid var(--ink);
-  transform: rotate(-2deg);
-}
-
-.hero__stage {
-  position: relative;
-  min-height: 0;
-}
-
-.hero__grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(260px, 0.62fr);
-  gap: clamp(18px, 3vw, 44px);
-  align-items: center;
-  padding-top: clamp(20px, 4vw, 48px);
-}
-
-.hero__copy {
-  position: relative;
-  min-width: 0;
-  justify-self: stretch;
+.hero__inner {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   align-items: center;
+  gap: 56px 64px;
+  padding-block: 96px 104px;
 }
 
-.hero__headline {
-  font-family: var(--font-display);
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  line-height: 0.9;
+.hero__intro {
+  flex: 1.2 1 520px;
   min-width: 0;
-  padding: clamp(20px, 3vw, 34px) clamp(24px, 5vw, 64px);
-  border: 3px solid var(--orange);
-  background: rgba(248, 247, 241, 0.64);
-  box-shadow: 0 16px 35px rgba(22, 18, 8, 0.08);
-  transform: rotate(-1.1deg);
 }
 
 .hero__name {
-  display: block;
-  min-width: 0;
+  margin-top: 18px;
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(4.8rem, 11vw, 10rem);
-  letter-spacing: 0;
-  color: var(--ink);
-  margin-bottom: clamp(8px, 1vw, 14px);
-  white-space: nowrap;
-  overflow: hidden;
+  font-size: clamp(48px, 6.2vw, 90px);
+  line-height: 0.92;
+  letter-spacing: -0.035em;
 }
 
-.hero__rise {
-  display: block;
-  min-width: 0;
-  overflow: hidden;
+.hero__role {
+  margin-top: 26px;
+  max-width: 24ch;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(22px, 2.3vw, 32px);
+  line-height: 1.18;
+  letter-spacing: -0.015em;
 }
 
-.hero__rise-inner {
-  display: block;
-  font-weight: 700;
-  font-size: clamp(1.55rem, 4vw, 4.2rem);
-  letter-spacing: 0;
-  white-space: nowrap;
-  text-transform: lowercase;
-}
-
-.hero__software {
-  color: var(--ink);
-}
-
-.hero__engineer {
-  color: var(--ink);
-}
-
-.hero__aside {
+.hero__actions {
   display: flex;
-  flex-direction: column;
-  gap: 18px;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 14px;
+  margin-top: 36px;
+}
+
+.hero__links {
+  display: flex;
+  gap: 4px 16px;
+  padding-left: 8px;
+}
+
+/* recent.log panel */
+.log {
+  flex: 1 1 440px;
   min-width: 0;
-  text-align: left;
-  transform: none;
+  font-family: var(--font-mono);
 }
 
-.hero__image-wrap {
-  position: relative;
-  overflow: visible;
-  aspect-ratio: auto;
-  width: 100%;
-  max-width: 320px;
-  align-self: center;
-  padding: 16px 16px 48px;
-  background: #fffdfa;
-  box-shadow: 0 22px 42px rgba(20, 17, 10, 0.2);
-  transform: rotate(3.2deg);
-}
-
-.hero__image {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-  border: 2px solid var(--ink);
-}
-
-.hero__image-wrap::before,
-.hero__image-wrap::after {
-  content: "";
-  position: absolute;
-  z-index: 2;
-  top: -22px;
-  width: 146px;
-  height: 42px;
-  background: var(--tape);
-  box-shadow: 0 1px 1px rgba(17, 16, 13, 0.12);
-}
-
-.hero__image-wrap::before {
-  left: -32px;
-  transform: rotate(-31deg);
-}
-
-.hero__image-wrap::after {
-  right: -28px;
-  transform: rotate(24deg);
-}
-
-.hero__meta {
+.log__body {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  max-width: 420px;
-  min-width: 0;
-}
-
-.hero__line {
-  position: relative;
-  display: inline-block;
-  padding: 16px 18px;
-  background: #a8dfca;
-  box-shadow: 6px 7px 0 rgba(17, 16, 13, 0.09);
-  transform: rotate(-2deg);
-  font-family: "Comic Sans MS", "Bradley Hand", "Marker Felt", cursive;
-  font-size: 18px;
+  padding: 22px 20px 26px;
+  font-size: 14px;
   line-height: 1.5;
-  color: var(--ink);
-  max-width: 30ch;
 }
 
-.hero__foot {
-  margin-top: 28px;
+.log__prompt {
+  font-size: inherit;
+}
+
+.log__rows {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.hero__sticky {
-  position: relative;
-  z-index: 2;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 72px;
-  padding: 15px 20px;
-  box-shadow: 7px 9px 0 rgba(17, 16, 13, 0.1), 0 12px 18px rgba(17, 16, 13, 0.12);
-  font-family: "Comic Sans MS", "Bradley Hand", "Marker Felt", cursive;
-  font-size: clamp(0.95rem, 1.25vw, 1.2rem);
-  line-height: 1.1;
-  color: var(--ink);
-  white-space: normal;
-  max-width: 100%;
+.log__row {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr) auto;
+  gap: 4px 14px;
+  align-items: baseline;
 }
 
-.hero__sticky::before {
-  content: "";
-  position: absolute;
-  top: -12px;
-  left: 18px;
-  width: 58px;
-  height: 20px;
-  background: rgba(255, 253, 250, 0.58);
-  transform: rotate(-8deg);
+.log__scope {
+  color: var(--orange);
 }
 
-.hero__sticky--green {
-  background: #a8dfca;
-  transform: rotate(-5deg);
-  margin-bottom: 22px;
-}
-.hero__sticky--yellow {
-  background: #f5df77;
-  transform: rotate(4deg);
-  align-self: center;
-  margin-bottom: 30px;
+.log__label {
+  color: var(--muted);
 }
 
-.hero__cta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 54px;
-  padding: 0 28px;
-  border: 2px solid var(--ink);
-  background: var(--surface-dark);
-  color: var(--on-dark);
-  box-shadow: 5px 5px 0 var(--orange);
-  font-family: var(--font-dot);
-  font-size: 13px;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+.log__value {
+  font-weight: 700;
+  white-space: nowrap;
 }
 
-.hero__cta:hover {
-  transform: translate(3px, 3px);
-  box-shadow: 2px 2px 0 var(--orange);
+.log__short {
+  display: none;
 }
 
-@media (max-width: 980px) {
-  .hero__stage {
-    min-height: 0;
-  }
-  .hero__grid {
-    grid-template-columns: 1fr;
-  }
-  .hero__copy {
-    justify-self: center;
-  }
-  .hero__aside {
-    padding-top: 30px;
-    align-items: center;
-    text-align: center;
-    transform: none;
-  }
-  .hero__image-wrap {
-    max-width: 320px;
+.cursor {
+  display: inline-block;
+  width: 9px;
+  height: 17px;
+  vertical-align: -3px;
+  background: var(--accent);
+  animation: cursor-blink 1.1s steps(1) infinite;
+}
+
+@keyframes cursor-blink {
+  50% {
+    opacity: 0;
   }
 }
 
 @media (max-width: 560px) {
-  .hero {
-    padding-top: 34px;
+  .hero__inner {
+    gap: 36px;
+    padding-block: 44px 52px;
   }
+
   .hero__name {
-    font-size: clamp(3.2rem, 18vw, 5rem);
+    margin-top: 14px;
+    /* "Badriddinova" must fit on one line down to 320px screens. */
+    font-size: min(50px, 13.8vw);
+    line-height: 0.94;
   }
-  .hero__rise-inner {
-    font-size: clamp(1.45rem, 9vw, 2.5rem);
+
+  .hero__role {
+    margin-top: 20px;
+    font-size: 23px;
+    line-height: 1.2;
   }
-  .hero__image-wrap {
-    max-width: min(300px, calc(100% - 32px));
+
+  .hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    margin-top: 28px;
   }
-  .hero__foot {
-    justify-content: center;
+
+  .hero__links {
+    gap: 24px;
+    padding-left: 0;
+    margin-top: -4px;
   }
-  .hero__sticky {
-    position: relative;
-    inset: auto;
-    margin: 0 4px 14px;
+
+  .log__bar {
+    padding: 11px 14px;
+    font-size: 11.5px;
   }
-  .hero__headline {
-    width: 100%;
+
+  .log__body {
+    gap: 13px;
+    padding: 18px 14px 20px;
+    font-size: 12.5px;
+    line-height: 1.45;
+  }
+
+  .log__rows {
+    gap: 13px;
+  }
+
+  .log__row {
+    grid-template-columns: 82px minmax(0, 1fr) auto;
+    gap: 2px 10px;
+  }
+
+  .log__label:has(.log__short) .log__long {
+    display: none;
+  }
+
+  .log__short {
+    display: inline;
+  }
+
+  .cursor {
+    width: 8px;
+    height: 15px;
   }
 }
 
-.hero__meta { align-self: center; }
-@media (max-width: 980px) {
-  .hero__grid { gap: 34px; }
-}
-@media (max-width: 560px) {
-  .hero__headline { padding-inline: 18px; }
-  .hero__sticky { margin: 0 0 24px; min-height: 54px; }
-  .hero__sticky--yellow { margin-bottom: 28px; }
-  .hero__image-wrap::before, .hero__image-wrap::after { width: 92px; height: 28px; top: -10px; }
-  .hero__image-wrap::before { left: -14px; }
-  .hero__image-wrap::after { right: -14px; }
-}
-
-@media (min-width: 981px) {
-  .hero { padding-top: clamp(32px, 5vh, 54px); }
-  .hero__grid { padding-top: 24px; }
-  .hero__name { font-size: clamp(4.8rem, 10vw, 9rem); }
-  .hero__image-wrap { max-width: 270px; padding: 12px 12px 28px; }
-  .hero__sticky { min-height: 54px; }
-  .hero__sticky--yellow { margin-bottom: 18px; }
-}
-
-/* Attach each note to its own frame at every breakpoint. */
-.hero__title-frame { position: relative; max-width: 100%; margin-top: 26px; }
-.hero__title-frame .hero__headline { padding-top: 44px; }
-.hero__title-frame .hero__sticky--green {
-  position: absolute;
-  top: -24px;
-  left: 16px;
-  margin: 0;
-  min-height: 48px;
-  padding: 12px 16px;
-  font-size: 16px;
-}
-.hero__image-wrap .hero__sticky--yellow {
-  position: absolute;
-  top: auto;
-  bottom: -16px;
-  right: 8px;
-  margin: 0;
-  min-height: 44px;
-  padding: 12px 16px;
-  font-size: 16px;
-  z-index: 3;
-}
-.hero__meta { margin-top: 20px; }
-@media (max-width: 560px) {
-  .hero__title-frame .hero__sticky--green { left: 12px; font-size: 14px; }
+@media (max-width: 360px) {
+  .log__row {
+    grid-template-columns: 74px minmax(0, 1fr) auto;
+    gap: 2px 8px;
+  }
 }

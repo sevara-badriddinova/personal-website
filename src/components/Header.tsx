@@ -1,36 +1,34 @@
-import { IconArrowUpRight } from "./icons";
+import { posts, site } from "../data/content";
 import "./Header.css";
 
 const NAV = [
-  { label: "Work", href: "#work" },
-  { label: "About", href: "#about" },
-  { label: "Resume", href: "/Sevara_Badriddinova_Resume.pdf" },
-  { label: "Contact", href: "#contact" },
+  { label: "experience", href: "#experience" },
+  { label: "projects", href: "#projects" },
+  ...(posts.length > 0 ? [{ label: "writing", href: "#writing" }] : []),
+  { label: "about", href: "#about" },
+  { label: "contact", href: "#contact" },
 ];
 
 export default function Header() {
   return (
-    <header className="header" data-reveal="nav">
-      <a className="header__mark" href="#top">
-        Sevara Badriddinova
-      </a>
-
-      <nav className="header__nav" aria-label="Primary">
-        {NAV.map((item) => (
-          <a key={item.label} className="header__link" href={item.href}>
-            {item.label}
+    <header className="header">
+      <div className="wrap header__inner">
+        <a className="header__home" href="#top" aria-label={`${site.name}, back to top`}>
+          ~/sevara
+        </a>
+        <div className="header__right">
+          <nav className="header__nav" aria-label="Primary">
+            {NAV.map((item) => (
+              <a key={item.href} className="header__link" href={item.href}>
+                {item.label}
+              </a>
+            ))}
+          </nav>
+          <a className="header__resume" href={site.resume} target="_blank" rel="noopener">
+            resume.pdf
           </a>
-        ))}
-      </nav>
-
-      <a
-        className="header__ext"
-        href="https://www.linkedin.com/in/sevarabadriddinova"
-        target="_blank"
-        rel="noreferrer"
-      >
-        LinkedIn <IconArrowUpRight aria-hidden />
-      </a>
+        </div>
+      </div>
     </header>
   );
 }
