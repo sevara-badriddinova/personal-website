@@ -13,6 +13,15 @@
   aspect-ratio: 1400 / 788;
 }
 
+.shot__zoom {
+  display: block;
+  cursor: zoom-in;
+}
+
+.shot__zoom:focus-visible {
+  outline-offset: -3px;
+}
+
 .project__tags {
   font-family: var(--font-mono);
   font-size: 13px;

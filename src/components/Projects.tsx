@@ -1,24 +1,27 @@
-import { contact, projects, type Project } from "../data/content";
+import { contact, projectAnchor, projects, type Project } from "../data/content";
 import Prompt from "./Prompt";
 import "./Projects.css";
 
 const IMAGE_SIZE = { width: 1400, height: 788 };
 
-function Shot({ project, index }: { project: Project; index?: number }) {
+// The diagrams are dense; tapping one opens it full size (helps most on phones).
+function Shot({ project }: { project: Project }) {
   return (
     <figure className="panel shot">
       <figcaption className="panel__bar">
         <span>{project.image.file}</span>
-        {index !== undefined && <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>}
+        <span aria-hidden="true">full size ↗</span>
       </figcaption>
-      <img
-        src={project.image.src}
-        alt={project.image.alt}
-        width={IMAGE_SIZE.width}
-        height={IMAGE_SIZE.height}
-        loading="lazy"
-        decoding="async"
-      />
+      <a className="shot__zoom" href={project.image.src} target="_blank" rel="noopener">
+        <img
+          src={project.image.src}
+          alt={`${project.image.alt} (opens full size)`}
+          width={IMAGE_SIZE.width}
+          height={IMAGE_SIZE.height}
+          loading="lazy"
+          decoding="async"
+        />
+      </a>
     </figure>
   );
 }
@@ -62,9 +65,9 @@ export default function Projects() {
 
         <div className="projects__featured">
           {featured.map((project, i) => (
-            <article key={project.slug} className={i % 2 === 1 ? "feature feature--flip" : "feature"}>
+            <article key={project.slug} id={projectAnchor(project.slug)} className={i % 2 === 1 ? "feature feature--flip" : "feature"}>
               <div className="feature__media">
-                <Shot project={project} index={i} />
+                <Shot project={project} />
               </div>
               <div className="feature__body">
                 <p className="project__tags">{project.tags}</p>
@@ -98,7 +101,7 @@ export default function Projects() {
             </div>
             <div className="projects__grid">
               {more.map((project) => (
-                <article key={project.slug} className="card">
+                <article key={project.slug} id={projectAnchor(project.slug)} className="card">
                   <Shot project={project} />
                   <p className="project__tags">{project.tags}</p>
                   <h3 className="card__title">{project.name}</h3>

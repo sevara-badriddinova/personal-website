@@ -1,4 +1,5 @@
 import { contact, site } from "../data/content";
+import CopyButton from "./CopyButton";
 import Prompt from "./Prompt";
 import "./Contact.css";
 
@@ -13,12 +14,15 @@ export default function Contact() {
         <p className="contact__lead">
           Want to talk about backend systems, payments or something I wrote? Email is the fastest way to reach me.
         </p>
-        <a className="contact__email" href={`mailto:${contact.email}`}>
-          {contact.email}
-        </a>
+        <div className="contact__email-row">
+          <a className="contact__email" href={`mailto:${contact.email}`}>
+            {contact.email}
+          </a>
+          <CopyButton text={contact.email} label="Copy email address" />
+        </div>
         <div className="contact__actions">
           <a className="btn btn--primary" href={site.resume} target="_blank" rel="noopener">
-            Download resume
+            View resume
           </a>
           <a className="btn btn--ghost" href={contact.linkedin} target="_blank" rel="noopener noreferrer">
             LinkedIn<span aria-hidden="true">&nbsp;↗</span>

@@ -6,6 +6,16 @@ export const site = {
   resume: "/Sevara_Badriddinova_Resume.pdf",
 };
 
+// Which terminal the hero uses:
+// "shell"   interactive prompt with suggestions
+// "palette" filterable command list (⌘K style)
+// "ls"      clickable `ls -la` listing plus a prompt
+// "header"  a prompt in the sticky header that works from anywhere
+export type TerminalVariant = "shell" | "palette" | "ls" | "header";
+export const terminalVariant: TerminalVariant = "shell";
+
+export const projectAnchor = (slug: string) => `project-${slug}`;
+
 export const contact = {
   email: "bsevaraqq@gmail.com",
   linkedin: "https://www.linkedin.com/in/sevarabadriddinova",
@@ -16,8 +26,8 @@ export const contact = {
 export type LogEntry = { scope: string; label: string; short?: string; value: string };
 
 export const recentLog: LogEntry[] = [
-  { scope: "maya", label: "risk scoring", value: "106 s → 3.3 s" },
-  { scope: "maya", label: "score API, load test", short: "score API", value: "7 ms p95" },
+  { scope: "maya", label: "risk scoring", value: "106 s → 3.3 s" },
+  { scope: "maya", label: "score API, load test", short: "score API", value: "7 ms p95" },
   { scope: "mayasoft", label: "transactions / day", short: "txns / day", value: "20,000+" },
   { scope: "jobradar", label: "LLM calls", value: "−97.8%" },
   { scope: "bilimly", label: "daily users", value: "300+" },
@@ -124,7 +134,7 @@ export const projects: Project[] = [
     image: {
       src: "/images/projects/bilimly.webp",
       file: "projects/bilimly/screenshot.png",
-      alt: "Bilimly.ai flashcard practice screen with themed topic cards",
+      alt: "Bilimly.ai speaking practice screen: a sentence to repeat aloud, Listen and Retry buttons, a microphone button, and conversation scenarios such as an IT interview",
     },
     links: [
       { label: "open site", href: "https://bilimly-ai.vercel.app" },

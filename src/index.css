@@ -77,6 +77,14 @@ a:hover {
   color: var(--orange);
 }
 
+/* No double-tap zoom delay, and a tap flash that matches the theme. */
+a,
+button,
+summary {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(255, 106, 51, 0.2);
+}
+
 :focus-visible {
   outline: 2px solid var(--orange);
   outline-offset: 3px;
@@ -173,6 +181,11 @@ ul {
   color: var(--ink);
   transform: translate(2px, 2px);
   box-shadow: 2px 2px 0 var(--accent);
+}
+
+.btn--primary:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 var(--accent);
 }
 
 .btn--ghost {
