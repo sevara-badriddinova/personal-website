@@ -205,12 +205,6 @@ k6 tells you *that* something got slow. It can't see inside your app to tell you
 
 Usually one of these hits its ceiling right at the knee. That's your bottleneck. Fix it, run the same test again, and see whether the knee moves to the right.
 
-### What I Saw at Work
-
-At Maya Software Studio I built the Spring Boot APIs that serve merchant risk scores and the explanation behind each score. In load tests, reads came back in 7 ms at p95 and writes in 50 ms at p95.
-
-> **Draft note:** this section is waiting on details from Sevara: how much load, against which environment, and what the test caught.
-
 ### What Can Still Go Wrong?
 
 A load test is only as honest as its setup. A few ways to fool yourself:

@@ -30,8 +30,8 @@ export function headFor(route: Route): Head {
   if (route.kind === "writing") {
     return {
       ...home,
-      title: `Writing — ${site.name}`,
-      description: "Notes from building backend systems: performance, testing, and what breaks in production.",
+      title: `Blog — ${site.name}`,
+      description: "Posts about building backend systems: performance, testing, and what breaks in production.",
       path: "/writing",
     };
   }
