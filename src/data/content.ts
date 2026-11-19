@@ -3,7 +3,7 @@
 export const site = {
   name: "Sevara Badriddinova",
   role: "Backend software engineer building fintech systems.",
-  resume: "/Sevara_Badriddinova_Resume.pdf",
+  resume: "https://drive.google.com/file/d/1-r6guzhm_2ettHhOfiR0vWEzQ48iGAxJ/view?usp=sharing",
 };
 
 export const projectAnchor = (slug: string) => `project-${slug}`;

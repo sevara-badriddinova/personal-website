@@ -26,5 +26,6 @@ export function page(path: string): string {
 
 /** A file from public/: "/images/boston.webp", "/Sevara_Badriddinova_Resume.pdf". */
 export function file(path: string): string {
+  if (/^https?:\/\//.test(path)) return path;
   return RELATIVE ? up() + path.replace(/^\/+/, "") : path;
 }
