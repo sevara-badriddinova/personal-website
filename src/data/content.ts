@@ -20,7 +20,7 @@ export type LogEntry = { scope: string; label: string; short?: string; value: st
 export const recentLog: LogEntry[] = [
   { scope: "maya", label: "risk scoring", value: "106 s → 3.3 s" },
   { scope: "maya", label: "score API, load test", short: "score API", value: "7 ms p95" },
-  { scope: "mayasoft", label: "transactions / day", short: "txns / day", value: "20,000+" },
+  { scope: "mayasoft", label: "transactions / day", short: "txns / day", value: "200,000+" },
   { scope: "jobradar", label: "LLM calls", value: "−97.8%" },
   { scope: "bilimly", label: "daily users", value: "300+" },
 ];
@@ -42,11 +42,12 @@ export const experience: ExperienceItem[] = [
     role: "Software Engineering Intern",
     context: "Mayasoft subsidiary building fintech services for banking clients",
     points: [
-      "Proposed and built a rule-based merchant risk-scoring service for bank lending decisions, and integrated a teammate’s ML model into it. Now in production, designed for 15,000+ merchants across 35,000+ terminals.",
+      "Built a merchant risk-scoring system for lending decisions from payment frequency, recency, consistency and trends, supporting a fintech platform with 300,000+ users across 3 million+ payment terminals.",
+      "Developed an explainable ML pipeline with Python, CatBoost and SHAP, including model evaluation, reproducible training and feedback-driven retraining.",
       "Cut risk-scoring computation from 106 s to 3.3 s by replacing per-merchant SQL queries with a single set-based aggregation, which removed the repeated database scans.",
-      "Built Java/Spring Boot REST APIs that serve risk scores with their explanations: 7 ms P95 read and 50 ms P95 write latency in load tests.",
+      "Built and load-tested Java/Spring Boot REST APIs that serve risk scores with their explanations: 7 ms P95 read and 50 ms P95 write latency.",
     ],
-    stack: "java · spring-boot · sql · rest",
+    stack: "python · catboost · shap · java · spring-boot · postgresql",
   },
   {
     handle: "mayasoft",
@@ -54,10 +55,11 @@ export const experience: ExperienceItem[] = [
     role: "Software Engineer",
     context: "MARTA SoftPOS, which lets Android phones accept contactless Visa and Mastercard payments",
     points: [
-      "Built a transactions dashboard (Spring Boot APIs, React UI) that replaced manual Excel reporting, giving operations staff real-time visibility into 20,000+ daily transactions and tools to investigate and reconcile disputes.",
+      "Built a transactions dashboard (Spring Boot APIs, React UI) that replaced manual Excel reporting, giving operations staff real-time visibility into 200,000+ daily payments and tools to investigate and reconcile disputes.",
       "Owned merchant onboarding end to end: document upload and identity verification with validation, state tracking and audit history. Reduced manual review by 40%.",
+      "Implemented read-only credit-transfer history over RabbitMQ RPC between the wallet and terminal services, so payment records can be retrieved across services.",
     ],
-    stack: "spring-boot · react · postgresql · aws-s3",
+    stack: "spring-boot · react · postgresql · rabbitmq · aws-s3",
   },
   {
     handle: "gdg-on-campus-usf",
@@ -65,7 +67,7 @@ export const experience: ExperienceItem[] = [
     role: "Community Lead",
     context: "Google Developer Groups on Campus, University of South Florida",
     points: [
-      "Organize hackathons for 200+ students, coordinating planning and logistics and explaining technical concepts to participants at every experience level.",
+      "Lead technical conferences and hackathons for 500+ attendees, coordinating sessions and community engagement.",
     ],
   },
   {
@@ -73,7 +75,7 @@ export const experience: ExperienceItem[] = [
     dates: "2026-12",
     role: "B.S. Computer Science",
     context: "University of South Florida, College of Engineering",
-    text: "GPA 3.56 / 4.00. Coursework in data structures and algorithms, database systems, computer architecture and operating systems.",
+    text: "GPA 3.56 / 4.00. Coursework in data structures and algorithms, operating systems, ML for computer systems and intro to AI.",
   },
 ];
 
@@ -222,8 +224,8 @@ export const about = {
 };
 
 export const stack: { key: string; value: string }[] = [
-  { key: "languages", value: "Java, Python, Go, SQL, TypeScript, JavaScript, C/C++" },
-  { key: "backend", value: "Spring Boot, Node.js, React, PostgreSQL, Redis, REST APIs, WebSockets" },
-  { key: "cloud", value: "AWS (EC2, S3), GCP, Docker, Linux, GitHub Actions, Maven, k6" },
-  { key: "ai", value: "Claude API, LLM integration" },
+  { key: "languages", value: "Python, JavaScript, TypeScript, SQL, Java, Go, C/C++, React" },
+  { key: "backend", value: "Spring Boot, PostgreSQL, Redis, RabbitMQ, REST APIs, JWT/RBAC, WebSockets, concurrency" },
+  { key: "cloud", value: "AWS (EC2, S3), GCP, Docker, Kubernetes, Linux, GitHub Actions, Maven, k6" },
+  { key: "ai", value: "CatBoost, scikit-learn, SHAP, LLM API integration" },
 ];
